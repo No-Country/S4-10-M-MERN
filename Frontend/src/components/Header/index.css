@@ -1,0 +1,23 @@
+.header__container {
+  background: rgb(233, 13, 13);
+}
+.nav-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+.nav-header > ul {
+  display: flex;
+  gap: 10px;
+}
+.nav-header > ul > li {
+  list-style-type: none;
+  font-family: OrbitronMedium;
+}
+
+.nav-header__link {
+  color: white;
+  text-decoration: none;
+}
