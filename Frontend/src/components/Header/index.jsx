@@ -11,7 +11,7 @@ export const Header = () => {
               <Link to={"/wordle"} className="nav-header__link">WORDLE</Link>
             </li>
             <li>
-              <Link to={"/ahorcado"} className="nav-header__link" >
+              <Link to={"/hangman"} className="nav-header__link" >
                 AHORCADO
               </Link>
             </li>
