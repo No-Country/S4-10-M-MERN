@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { checkWin } from '../../helpers/HelpersHangman'
+import gameOverSound from '../../assets/audio/gameOver.mp3'
+import useSound from 'use-sound';
 
 const Popup = ({ correctLetters, wrongLetters, selectedWord, setPlayable, playAgain }) => {
     const navigate = useNavigate() 
+    const [gOverSound] = useSound(gameOverSound);
 
     let finalMessage = '';
     let finalMessageRevealWord = '';
@@ -16,6 +19,7 @@ const Popup = ({ correctLetters, wrongLetters, selectedWord, setPlayable, playAg
         finalMessage = 'GAME OVER';
         finalMessageRevealWord = `PALABRA: ${selectedWord}`;
         playable = false;
+        gOverSound()
     }
 
     useEffect(() => setPlayable(playable));

@@ -8,46 +8,50 @@ import WrongLetters from './WrongLetters';
 import { notificationPopup } from '../../helpers/HelpersHangman'
 import useSound from 'use-sound';
 import boopSfx from '../../assets/audio/monedaAcierto.mp3'
+import wrongSound from '../../assets/audio/error.mp3'
+
 
 const words = ['tiburon', 'matrix', 'scarface'];
 
 let selectedWord = words[Math.floor(Math.random() * words.length)];
-
-const BoopButton = () => {
-  const [play] = useSound(boopSfx);
-  return <button onClick={play}>Boop!</button>;
-};
 
 function Hangman() {
   const [playable, setPlayable] = useState(true)
   const [correctLetters, setCorrectLetters] = useState([])
   const [wrongLetters, setWrongLetters] = useState([])
   const [showNotification, setShowNotification] = useState(false)
+  const [correctSound] = useSound(boopSfx);
+  const [errorSound] = useSound(wrongSound);
 
+  
   useEffect(() => {
     const handleKeydown = event => {
       const { key, keyCode } = event;
-        if (playable && keyCode >= 65 && keyCode <= 90) {
-          const letter = key.toLowerCase();
-    
-          if (selectedWord.includes(letter)) {
-            if (!correctLetters.includes(letter)) {  
-              setCorrectLetters(curr => [...curr, letter])
+      if (playable && keyCode >= 65 && keyCode <= 90) {
+        const letter = key.toLowerCase();
+        
+        if (selectedWord.includes(letter)) {
+          if (!correctLetters.includes(letter)) {  
+              correctSound()
+              console.log("");
+              setCorrectLetters([...correctLetters, letter]);
             } else {
               notificationPopup(setShowNotification)
             }
           } else {
             if (!wrongLetters.includes(letter)) {
-              setWrongLetters(curr => [...curr, letter])
+              setWrongLetters([...wrongLetters, letter])
+              errorSound()
             } else {
               notificationPopup(setShowNotification)
             }
           }
         }
     }
+
     window.addEventListener('keydown', handleKeydown);
     return () => window.removeEventListener('keydown', handleKeydown)
-  }, [correctLetters, wrongLetters, playable])
+  }, [correctLetters, wrongLetters, playable, correctSound, errorSound])
 
   function playAgain() {
     setPlayable(true);
@@ -68,6 +72,7 @@ function Hangman() {
           <div className='div-hangman-wrongLetters'>
             <Figure wrongLetters={wrongLetters} />
             <WrongLetters wrongLetters={wrongLetters} />
+
           </div>
           <Word selectedWord={selectedWord} correctLetters={correctLetters} />
         </div>
