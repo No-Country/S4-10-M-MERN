@@ -1,17 +1,14 @@
+require("dotenv").config({ path: "../../.env" });
 import mongoose from "mongoose";
 import userModel from "../models/userModel";
+import jwt from "jsonwebtoken";
+import GlobalClass from "./globalClass";
 
+class User extends GlobalClass {
 
-class User {
-    constructor(collection) {
-        this.collection = collection;
-        this.model = mongoose.model(this.collection);
-    }
-
-    async findOne(user) {
+    async findByCategory(cat, catName) {
         try {
-            const foundUser = await this.model.findOne({ username: user });
-
+            const foundUser = await this.model.findOne({ [catName]: cat });
             return foundUser ? foundUser : false;
         } catch (err) {
             console.log(err);
@@ -28,7 +25,15 @@ class User {
                 password: await userModel.encryptPassword(password)
             });
 
-            const createdUser = await newUser.save();
+            const verToken = jwt.sign(
+                [newUser.username, newUser.password],
+                process.env.SECRET_KEY,
+                { expiresIn: "10m" }
+            );
+
+            newUser.verToken = verToken;
+
+            const createdUser = newUser.save();
 
             return createdUser;
 
@@ -36,29 +41,14 @@ class User {
             console.log(err);
         }
     }
-
     async UpdateById(cat, update, id) {
         try {
-            const updatedUser = await this.model.findByIdAndUpdate({ _id: id }, { [cat]: update }, { new: true });
+            const updatedUser = await this.model.findByIdAndUpdate({ id }, { [cat]: update }, { new: true });
             return updatedUser.length === 0 ? true : false;
         } catch (err) {
             console.log(err);
         }
     };
-
-    async findAll() {
-        try {
-            const user = await this.model.find();
-
-            if (user.length === 0) return false;
-
-            return user;
-        } catch (err) {
-            console.log(err);
-        }
-
-    };
-
 }
 
 export default new User('Users');
