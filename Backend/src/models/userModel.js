@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    verToken: String,
     score: {
         type: Array,
         default: []
@@ -28,7 +29,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.statics.encryptPassword = async (password) => {
     try {
-        return await bcrypt.hash(password, 10)
+        return await bcrypt.hash(password, 10);
     } catch (err) {
         console.log(err);
     }
