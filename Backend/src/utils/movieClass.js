@@ -1,16 +1,27 @@
-import mongoose from "mongoose";
 import GlobalClass from "./globalClass";
+import movieModel from "../models/movieModel";
 
 
 class Movie extends GlobalClass {
 
     async findByTitle(title) {
-        const foundMovieEnglish = await this.model.findOne({ englishTitle: title });
-        if (!foundMovie) {
-            const foundMovieSpanish = await this.model.findOne({ spanishTitle: title });
-            return !foundMovieSpanish ? false : foundMovieSpanish;
-        }
-        return foundMovieEnglish;
+        const foundMovie = await this.model.findOne({ $or: [{ englishTitle: title, }, { spanishTitle: title }] });
+        return foundMovie ? foundMovie : false;
+    }
+
+    async createNewMovie({ englishTitle, spanishTitle, characters = [], category, isMovie = false, isSerie = false, img = "" }) {
+        const movieExists = await this.model.findOne({ $or: [{ englishTitle }, { spanishTitle }] })
+        if (!movieExists) return false;
+        const newMovie = new movieModel({
+            englishTitle,
+            spanishTitle,
+            characters,
+            category,
+            isMovie,
+            isSerie,
+            img
+        });
+
     }
 
     async updateMovieByCat(cat, updateInfo) {
@@ -19,12 +30,8 @@ class Movie extends GlobalClass {
     }
 
     async deleteByMovieTitle(title) {
-        const deletedEnglishMovie = this.model.findOneAndDelete({ englishTitle: title });
-        if (deletedEnglishMovie[0].length == 0) {
-            const deletedSpanishMovie = this.model.findOneAndDelete({ spanishTitle: title });
-            return deletedSpanishMovie[0].length == 0 ? false : true;
-        }
-        return true;
+        const deletedEnglishMovie = this.model.findOneAndDelete({ $or: [{ englishTitle: title }, { spanishTitle: title }] });
+        return deletedEnglishMovie[0].length === 0 ? false : true;
     }
 
 }
