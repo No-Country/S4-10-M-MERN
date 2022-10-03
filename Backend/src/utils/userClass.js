@@ -18,6 +18,10 @@ class User extends GlobalClass {
 
     async createNewUser({ username, fullName, email, password }) {
         try {
+            const userExists = await this.model.findOne({ email });
+
+            if (userExists) return false;
+
             const newUser = new userModel({
                 username,
                 fullName,
