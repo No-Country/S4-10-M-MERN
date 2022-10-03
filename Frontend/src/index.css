@@ -6,10 +6,6 @@
   font-family: OrbitronMedium;
   src: url(./fonts/Orbitron-Medium.ttf);
 }
-@font-face {
-  font-family: OrbitronRegular;
-  src: url(./fonts/Orbitron-Regular.ttf);
-}
 
 body {
   margin: 0;
