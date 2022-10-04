@@ -56,3 +56,4 @@ class User extends GlobalClass {
 }
 
 export default new User('Users');
+// module.exports = { Users };
