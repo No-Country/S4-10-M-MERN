@@ -6,7 +6,7 @@ const {
     SECRET_ACCESS_KEY: secretAccessKey
 } = process.env
 
-export const s3 = new S3Client({
+export default new S3Client({
     credentials: {
         accessKeyId,
         secretAccessKey

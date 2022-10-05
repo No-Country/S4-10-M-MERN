@@ -1,7 +1,7 @@
-import { s3 } from '../config/aws-s3'
+import awsS3 from '../config/aws-s3.js'
 import movieClass from '../utils/movieClass.js'
-const { getSignedUrl } = require('@aws-sdk/s3-request-presigner')
-const { DeleteObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
+import { DeleteObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3'
 
 export const createmovie = async (req, res) => {
     try {
