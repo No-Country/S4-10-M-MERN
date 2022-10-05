@@ -1,4 +1,4 @@
-import userClass from "../utils/userClass"
+import userClass from "../utils/userClass.js"
 
 export const createUser = async (req, res) => {
     try {

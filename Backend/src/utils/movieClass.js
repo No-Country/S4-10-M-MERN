@@ -1,5 +1,5 @@
-import GlobalClass from "./globalClass";
-import movieModel from "../models/movieModel";
+import GlobalClass from "./globalClass.js";
+import movieModel from "../models/movieModel.js";
 
 
 class Movie extends GlobalClass {
