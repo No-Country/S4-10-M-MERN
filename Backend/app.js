@@ -9,7 +9,6 @@ const PORT = 8080 || 5000;
 
 const app = express();
 
-
 const cors = cors({corsPermissions})
 
 app.use(helmet());

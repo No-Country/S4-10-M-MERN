@@ -1,13 +1,14 @@
 //models
 import userClass from "../utils/userClass";
+import globalClass from "../utils/globalClass";
 //books
-const bcrypt = require('bcrypt');
-const dotenv = require('dotenv');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcrypt");
+const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
 //utils
 const { AppError } = require("../utils/AppError");
 const { catchAsync } = require("../utils/catchAsync");
-
+const { filterObject } = require("../utils/");
 
 //endpoints
 
@@ -24,51 +25,56 @@ export const createUser = catchAsync(async (req, res, next) => {
 
 export const loginUser = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
-  let user = await userClass.findOne({
-    //modelo user
-    where: { email, status: "active" },
-  });
-  if (!user || !(await bcrypt.compare(password, user.password))) {
-    return next(
-      new AppError("400", "Credential are incorrect, please verify it.")
-    );
-  }
 
-  //Add JWT
-  const token = await jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE_IN,
-  });
-
-  user = await userClass.findOne({
-    where: { email, status: "active" },
-    attributes: { exclude: ["password", "createdAt", "updatedAt", "email"] },
-
-    //attributes: { include: ['name', 'lastName', 'status'] }
-  });
-
-  res.status(200).json({
-    status: "Success",
-    data: { token, userData: user },
-  });
-
-  // const user = await User.findOne({ email: req.body.email });
-  //   if (!user) return next(new AppError(400, "usuario no encontrado"));
+  const userExist = await this.model.findOne({ email });
+  if (!userExist) return new AppError(400, "invalid email");
 
   // const validPassword = await bcrypt.compare(req.body.password, user.password);
   // if (!validPassword) return next(new AppError(400, "password  incorrecto"));
 
-  // // if(!user || validPassword) return next(new AppError(400, "Mail de usuario ya existente")
+  const token = await userClass.loginUser(email, password);
+  if (!token) return new AppError(400, "datos incorrectos");
 
-  // res.status(201).json({
-  //     status: 'success',
-  //     data: 'bienvenido'
-  // })
+  res.status(201).json({
+    status: "success",
+    data: { token },
+  });
+});
+
+export const UpdateById = catchAsync(async (req, res, next) => {
+  // const { cat, update, id } = req.body;
+  // const updateUser = await userClass.UpdateById(req.body )
+  const updateUser = filterObject(req.body, "cat", "update", "id");
+  await UpdateById.update({ ...updateUser });
+
+  // const updateUser = await userClass.UpdateById(cat, update, id )
+
+  // if(!updateUser) return next(new AppError(400, 'datos no actualizados'));
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      updateUser,
+    },
+  });
+});
+
+export const findById = catchAsync(async (req, res, next) => {
+  const userId = await globalClass.findById(req.body);
+
+  if (!userId) return next(new AppError(400, "id no encontrado"));
+  res.status(201).json({
+    status: "success",
+    data: {
+      userId,
+    },
+  });
 });
 
 export const getAllUsers = catchAsync(async (req, res, next) => {
-  const user = await User.findAll({
-    attributes: { exclude: ["password"] },
-  });
+  const user = await globalClass.findAll(req.body);
+
+  if (!user) return next(new AppError(400, "usuarios no encontrados"));
 
   res.status(201).json({
     status: "success",
@@ -79,8 +85,11 @@ export const getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 export const deleteUser = catchAsync(async (req, res, next) => {
-  const { user } = req;
-  await user.update({ status: "deleted" });
+  const deleteUser = await globalClass.deleteUserByUsername(req.body);
+  if (!deleteUser) return next(new AppError(400, "usuario no eliminado"));
 
-  res.status(204).json({ status: "success" });
+  res.status(201).json({
+    status: "success",
+    message: `The user with id was deleted correctly`,
+  });
 });
