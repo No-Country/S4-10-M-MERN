@@ -26,4 +26,5 @@ export const keys = [
   { key: "y" },
   { key: "z" },
   { key: "Enter" },
+  { key: "Backspace"}
 ];

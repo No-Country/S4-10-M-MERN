@@ -14,8 +14,8 @@ export default function Keypad({ keys, usedKeys }) {
         letters.map((l, index) => {
           const color = usedKeys[l.key];
           return (
-            <div key={index} className={color}>
-              {l.key}
+            <div key={index} onClick={() => window.dispatchEvent(new KeyboardEvent("keyup", keys[index]))} className={color}>
+              {l.key === "Backspace" ? "BORRAR" : (l.key).toUpperCase()}
             </div>
           );
         })}
