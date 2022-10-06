@@ -58,6 +58,10 @@ const useWordle = (solution, turn, setTurn) => {
       return prevTurn + 1;
     });
 
+    if (setTurn === 3 ){
+      console.log("llegaste a los tres intentos");
+    }
+
     setUsedKeys((prevUsedKeys) => {
       formattedGuess.forEach((letter) => {
         const currentColor = prevUsedKeys[letter.key];

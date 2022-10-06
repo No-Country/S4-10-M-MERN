@@ -19,7 +19,7 @@ const Popup = ({ correctLetters, wrongLetters, selectedWord, setPlayable, playAg
         finalMessage = 'GAME OVER';
         finalMessageRevealWord = `PALABRA: ${selectedWord}`;
         playable = false;
-        gOverSound()
+    //    gOverSound()
     }
 
     useEffect(() => setPlayable(playable));
@@ -45,7 +45,7 @@ const Popup = ({ correctLetters, wrongLetters, selectedWord, setPlayable, playAg
                 </div>
 
                 <div>
-                    <p>HIGN_SCORE<span>9430</span></p>
+                    <p>HIGN_SCORE</p>
                     <p>9850</p>
                 </div>
                 

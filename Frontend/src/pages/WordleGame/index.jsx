@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import Loading from "../../components/Loading/Loading";
 import { Wordle } from "../../components/WordleComponents/Wordle";
 
 const solutionsHarcodeado = [
@@ -23,8 +24,10 @@ const solutionsHarcodeado = [
 
 export const WordleGame = () => {
   const [solution, setSolution] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true)
     // fetch("http://localhost:3001/solutions")
     //   .then((res) => res.json())
     //   .then((json) => {
@@ -34,11 +37,23 @@ export const WordleGame = () => {
     //     console.log(randomSolution.word);
     //     setSolution(randomSolution.word);
     //   });
+    
     const randomSolution =
-      solutionsHarcodeado[
-        Math.floor(Math.random() * solutionsHarcodeado.length)
-      ];
-    setSolution(randomSolution.word);
+    solutionsHarcodeado[
+      Math.floor(Math.random() * solutionsHarcodeado.length)
+    ];
+    setTimeout(() => {
+      setSolution(randomSolution.word);
+      setLoading(false)
+    },1500);
+
+
+    
   }, [setSolution]);
-  return <Wordle solution={solution} />;
+  return loading ? (
+    <div className='divLoader'>
+     <Loading />
+    </div>): 
+  
+    <Wordle solution={solution} />;
 };

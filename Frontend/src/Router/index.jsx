@@ -9,9 +9,7 @@ export const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route path="/hangman" element={<Hangman/>} />
-
-
-        <Route path="/wordle" element={<WordleGame />} />
+        <Route path="/wordle" element={<WordleGame/>} />
         <Route index element={<h1>ruta raiz</h1>} />
       </Route>
       <Route path="*" element={<h1>Ruta no encontrada</h1>} />
