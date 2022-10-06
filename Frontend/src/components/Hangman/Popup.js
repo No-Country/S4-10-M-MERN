@@ -17,7 +17,7 @@ const Popup = ({ correctLetters, wrongLetters, selectedWord, setPlayable, playAg
         playable = false;
     } else if( checkWin(correctLetters, wrongLetters, selectedWord) === 'lose' ) {
         finalMessage = 'GAME OVER';
-        finalMessageRevealWord = `PALABRA: ${selectedWord}`;
+        finalMessageRevealWord = `Palabra: ${selectedWord.name.toUpperCase()}`;
         playable = false;
     //    gOverSound()
     }
@@ -32,7 +32,7 @@ const Popup = ({ correctLetters, wrongLetters, selectedWord, setPlayable, playAg
         <div className="popup-container" style={finalMessage !== '' ? {display:'flex'} : {}}>
             <div className="popup">
                 <h1>{finalMessage}</h1>
-                <p>{finalMessageRevealWord}</p>
+                <h4 className='messengerGameOver'>{finalMessageRevealWord}</h4>
 
                 <div>
                     <p>SCORE</p>

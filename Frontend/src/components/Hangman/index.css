@@ -219,10 +219,20 @@
     cursor: pointer;
     border: 1px solid transparent;
 }
+
 .btnPlayAgain:hover{
     border: 1px solid white;
 }
 
 .divSolutionDev span{
     color: white;
+}
+
+.messengerGameOver{
+    color:red;
+    background-color: #1d1d1bac;
+    width: 300px;
+    padding: 8px;
+    font-size: 14px;
+    margin: 0 auto;
 }

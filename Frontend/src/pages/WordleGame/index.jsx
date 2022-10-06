@@ -46,10 +46,8 @@ export const WordleGame = () => {
       setSolution(randomSolution.word);
       setLoading(false)
     },1500);
-
-
-    
   }, [setSolution]);
+
   return loading ? (
     <div className='divLoader'>
      <Loading />

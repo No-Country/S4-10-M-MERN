@@ -23,13 +23,10 @@ const wordsDos = [
   {id:5, name:'enredados', img:"assets/enredados.png"}
 ];
 
-let selectedWord = wordsDos[Math.floor(Math.random() * words.length)];
-
-
-
+let selectedWord = wordsDos[Math.floor(Math.random() * wordsDos.length)];
 
 const Hangman = () =>{
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   console.log(selectedWord);
   //const selectedNameWord = selectedWord[1]
@@ -41,11 +38,13 @@ const Hangman = () =>{
   const [correctSound] = useSound(boopSfx);
   const [errorSound] = useSound(wrongSound);
   
-
+  const [solution, setSolution] = useState(null)
+  
+  
   
   useEffect(() => {
     setLoading(true)
-      const handleKeydown = event => {
+    const handleKeydown = event => {
       const { key, keyCode } = event;
       if (playable && keyCode >= 65 && keyCode <= 90) {
         const letter = key.toLowerCase();
@@ -72,21 +71,21 @@ const Hangman = () =>{
     
     //console.log(wrongLetters);
     
-    setTimeout(()=>{
-      
-      setLoading(false)
-    },1500);
-
+    
+    
+    
+    
     if(wrongLetters.length === 3){
       console.log("sale botón");
       setButtonClues("buttonClue")
+      return
     }
-    
     window.addEventListener('keydown', handleKeydown);
     return () => window.removeEventListener('keydown', handleKeydown)
     
   },[correctLetters, wrongLetters, playable, correctSound, errorSound])
   
+
   
   const playAgain = () => {
     setPlayable(true);
@@ -99,7 +98,6 @@ const Hangman = () =>{
     selectedWord = wordsDos[random];
   }
   
-  
   const [clue, setClues] = useState("clueNone");
   const [buttonClue, setButtonClues] = useState("buttonClue2");
   
@@ -108,13 +106,13 @@ const Hangman = () =>{
     setClues("clue");
     setButtonClues("buttonClue2")
   };
-
-  return  loading ? (
-    <div className='divLoader'>
-     <Loading />
-    </div>)
-    : 
-    <div className='bigHangman'>
+//  return  loading ? (
+//    <div className='divLoader'>
+//     <Loading />
+//    </div>)
+//    : 
+  
+  return <div className='bigHangman'>
     <div className="game-container">
       <div className='game-container-div'>
         <div className='div-hangman-wrongLetters'>
