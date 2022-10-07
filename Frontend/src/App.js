@@ -1,19 +1,10 @@
-import logo from "./logo.svg";
+
 import "./App.css";
-
-import { Login } from "../src/components/login/index";
-import { Register } from "../src/components/register/index";
-import React, { useState } from "react";
-
-
+import SignInOutContainer from './containers';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-function App() {
-  const [currentForm, setCurrentForm] = useState('login');
 
-  const toggleForm = (formName) => {
-    setCurrentForm(formName);
-  }
+function App() {
 
   return (
    <div>
@@ -25,9 +16,11 @@ function App() {
     </BrowserRouter>
 
     <div className="App">
-      {
-        currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />
-      }
+      <div className="App">
+      <SignInOutContainer/> 
+     
+
+      </div>
     </div>
    </div>
    
@@ -35,3 +28,4 @@ function App() {
 }
 
 export default App;
+

@@ -1,26 +1,74 @@
-import React, { useState } from "react";
+import { Field, Form, Formik, ErrorMessage  } from "formik";
+import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@mui/material'
+import LockIcon from '@mui/icons-material/Lock';
+import { FormControlLabel } from '@mui/material';
+import {Checkbox} from '@mui/material';
+import * as Yup from "yup"
 import "./index.css"
 
-export const Login = (props) => {
-    const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
+const Login = ({ handleChange }) => {
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(email);
+    const paperStyle = { padding: 20, height: '73vh', width: 300, margin: "0 auto" }
+    const avatarStyle = { backgroundColor: '#1bbd7e' }
+    const btnstyle = { margin: '8px 0' }
+
+    const initialValues = {
+        username: '',
+        password: '',
+        remember: false
     }
+    const validationSchema = Yup.object().shape({
+        username: Yup.string().min(6, "Password must be at least 6 characters").required("Required"),
+        password: Yup.string().required("Required")
+    })
+    const onSubmit = (values, props) => {
+        console.log(values)
+        setTimeout(() => {
+            props.resetForm()
+            props.setSubmitting(false)
+        }, 2000)
 
+    }
     return (
-        <div className="auth-form-container">
-            <h2>Login</h2>
-            <form className="login-form" onSubmit={handleSubmit}>
-                <label htmlFor="email">email</label>
-                <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
-                <label htmlFor="password">password</label>
-                <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
-                <button type="submit">Log In</button>
-            </form>
-            <button className="link-btn" onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here.</button>
-        </div>
+        <Grid>
+            <Paper style={paperStyle}>
+                <Grid align='center'>
+                    <Avatar style={avatarStyle}><LockIcon /></Avatar>
+                    <h2>Sign In</h2>
+                </Grid>
+                <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                    {(props) => (
+                        <Form>
+                            <Field as={TextField} label='Username' name="username"
+                                placeholder='Enter username' fullWidth required
+                                helperText={<ErrorMessage name="username" />} />
+                            <Field as={TextField} label='Password' name="password"
+                                placeholder="********"  type='password' fullWidth required
+                                helperText={<ErrorMessage name="password" />} />   
+                            <Field as={FormControlLabel}
+                                name='remember'
+                                control={
+                                    <Checkbox  color="primary"/>
+                                }
+                                label="Remember me"/>
+                            <Button type='submit' color='primary' variant="contained" disabled={props.isSubmitting}
+                                style={btnstyle} fullWidth>{props.isSubmitting ? "Loading" : "Sign in"}</Button>
+                        </Form>
+                    )}
+                </Formik>
+                <Typography >
+                    <Link href="#" >
+                        Forgot password ?
+                </Link>
+                </Typography>
+                <Typography > Do you have an account ?
+                     <Link href="#" onClick={() => handleChange("event", 1)} >
+                        Sign Up
+                </Link>
+                </Typography>
+            </Paper>
+        </Grid>
     )
 }
+
+export default Login
