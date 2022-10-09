@@ -5,9 +5,9 @@ export default class Global {
         this.collection = collection;
         this.model = mongoose.model(this.collection);
     }
-    async findById(id) {
+    async findById({ id }) {
         try {
-            const foundDocument = await this.model.findById({ id });
+            const foundDocument = await this.model.findById(id);
 
             return foundDocument ? foundDocument : false;
         } catch (err) {
