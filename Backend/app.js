@@ -15,9 +15,8 @@ app.use(helmet());
 app.use('/api/v1/user', userRouter)
 app.use('/api/v1/movie', movieRouter)
 
-app.use(helmet());
 
-app.use('/api/v1/user', cors(), userRouter)
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, (err) => {
     !err ? console.log("server on PORT", PORT) : console.log(err);
