@@ -7,9 +7,9 @@ export default class Global {
     }
     async findById(id) {
         try {
-            const foundUser = await this.model.findById({ id });
-            
-            return foundUser ? foundUser : false;
+            const foundDocument = await this.model.findById({ id });
+
+            return foundDocument ? foundDocument : false;
         } catch (err) {
             console.log(err);
         }
