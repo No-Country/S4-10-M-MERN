@@ -11,7 +11,7 @@ class User extends GlobalClass {
             if (catName == "username" || catName == "email" || catName == "_id") {
 
                 const foundUser = await this.model.findOne({ [catName]: cat });
-                
+
                 const user = foundUser ? {
                     username: foundUser.username,
                     email: foundUser.email,
@@ -59,7 +59,7 @@ class User extends GlobalClass {
     async findByEmail({ email }) {
         try {
             const user = await this.model.findOne({ email });
-            return user ? user.email : false;
+            return user ? user : false;
         } catch (error) {
             console.log(err);
         }
@@ -74,17 +74,16 @@ class User extends GlobalClass {
             console.log(err);
         }
     };
-    async updateUserInfo({ cat, update, email }) {
+    async updateUserInfo({ cat, update, id }) {
         try {
-            const userToUpdate = await this.model.findOne({ email });
+            const userToUpdate = await this.model.findById(id);
 
             if (!userToUpdate || !userToUpdate[cat] || userToUpdate[cat] == update) return false;
 
             if (cat == "username" || cat == "fullName") {
-                const newModel = await this.model.findOneAndUpdate({ email }, { [cat]: update }, { new: true });
+                await this.model.findByIdAndUpdate(id, { [cat]: update }, { new: true });
                 return true;
             }
-
             return false;
         } catch (err) {
             console.log(err);
