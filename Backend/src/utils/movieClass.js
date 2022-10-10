@@ -1,5 +1,5 @@
 import GlobalClass from "./globalClass.js";
-import movieModel from "../models/movieModel.js";
+import { movieModel } from '../models/movieModel.js'
 
 
 class Movie extends GlobalClass {
@@ -9,19 +9,23 @@ class Movie extends GlobalClass {
         return foundMovie ? foundMovie : false;
     }
 
-    async createNewMovie({ englishTitle, spanishTitle, characters = [], category, isMovie = false, isSerie = false, img = "" }) {
-        const movieExists = await this.model.findOne({ $or: [{ englishTitle }, { spanishTitle }] })
-        if (!movieExists) return false;
-        const newMovie = new movieModel({
-            englishTitle,
-            spanishTitle,
-            characters,
-            category,
-            isMovie,
-            isSerie,
-            img
-        });
+    async findRandom() {
+        const movie = await this.model.findOne().lean()
+        return movie
+    }
 
+    async createNewMovie({ originalTitle, spanishTitle, category, isSerie, img, audio }) {
+        const movieExists = await this.model.findOne({ $or: [{ originalTitle }, { spanishTitle }] })
+        if (movieExists) throw new Error('A movie with the same name has been created');
+        const newMovie = new movieModel({
+            originalTitle,
+            spanishTitle,
+            category,
+            isSerie,
+            img,
+            audio
+        });
+        return await newMovie.save()
     }
 
     async updateMovieByCat(cat, updateInfo) {
