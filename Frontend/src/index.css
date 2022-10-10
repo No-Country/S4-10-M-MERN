@@ -6,6 +6,11 @@
   font-family: OrbitronMedium;
   src: url(./fonts/Orbitron-Medium.ttf);
 }
+/* No usar tildes con esta fuente porque no existen allí */
+@font-face {
+  font-family: Arcade;
+  src: url(./fonts/ARCADE_N.TTF);
+}
 
 body {
   margin: 0;
