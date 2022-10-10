@@ -1,8 +1,7 @@
-require("dotenv").config({ path: "../../.env" });
 import mongoose from "mongoose";
-import userModel from "../models/userModel";
+import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
-import GlobalClass from "./globalClass";
+import GlobalClass from "./globalClass.js";
 
 class User extends GlobalClass {
 
@@ -55,4 +54,4 @@ class User extends GlobalClass {
     };
 }
 
-export default new User('Users');
+export default new User('users');
