@@ -9,11 +9,7 @@ import { notificationPopup } from '../../helpers/HelpersHangman'
 import useSound from 'use-sound';
 import boopSfx from '../../assets/audio/monedaAcierto.mp3'
 import wrongSound from '../../assets/audio/error.mp3'
-import clueImg from '../../assets/img/intensamente.png'
 import Loading from '../Loading/Loading';
-//import Loading from '../Loading/Loading';
-
-const words = ['intensamente','malefica', 'zootopia', 'ratatouille','enredados'];
 
 const wordsDos = [
   {id:1, name:'intensamente', img:"assets/intensamente.png"},
@@ -26,24 +22,22 @@ const wordsDos = [
 let selectedWord = wordsDos[Math.floor(Math.random() * wordsDos.length)];
 
 const Hangman = () =>{
-  const [loading, setLoading] = useState(false);
 
-  console.log(selectedWord);
-  //const selectedNameWord = selectedWord[1]
-  
+  const [loading, setLoading] = useState(true);
+  useEffect(()=>{
+    setTimeout(() => {
+      setLoading(false)
+    },1500);
+  },[])
+
   const [playable, setPlayable] = useState(true)
-  const [correctLetters, setCorrectLetters] = useState([])
-  const [wrongLetters, setWrongLetters] = useState([])
-  const [showNotification, setShowNotification] = useState(false)
+  const [correctLetters, setCorrectLetters] = useState([])// array de letras 
+  const [wrongLetters, setWrongLetters] = useState([])//array de letras incorrectas
+  const [showNotification, setShowNotification] = useState(false)//
   const [correctSound] = useSound(boopSfx);
   const [errorSound] = useSound(wrongSound);
   
-  const [solution, setSolution] = useState(null)
-  
-  
-  
   useEffect(() => {
-    setLoading(true)
     const handleKeydown = event => {
       const { key, keyCode } = event;
       if (playable && keyCode >= 65 && keyCode <= 90) {
@@ -67,33 +61,24 @@ const Hangman = () =>{
           }
         }
       }
-    }
-    
-    //console.log(wrongLetters);
-    
-    
-    
-    
-    
+    }    
+
     if(wrongLetters.length === 3){
       console.log("sale botón");
       setButtonClues("buttonClue")
-      return
     }
+    
     window.addEventListener('keydown', handleKeydown);
     return () => window.removeEventListener('keydown', handleKeydown)
     
   },[correctLetters, wrongLetters, playable, correctSound, errorSound])
-  
 
-  
   const playAgain = () => {
     setPlayable(true);
     setCorrectLetters([]);
     setWrongLetters([]);
     setButtonClues("buttonClue2")
     setClues("clueNone");
-    
     const random = Math.floor(Math.random() * wordsDos.length);
     selectedWord = wordsDos[random];
   }
@@ -101,16 +86,17 @@ const Hangman = () =>{
   const [clue, setClues] = useState("clueNone");
   const [buttonClue, setButtonClues] = useState("buttonClue2");
   
+  const score = (10 - wrongLetters.length) * 10 
+  
   const changeStyle = () => {
     console.log("you just clicked");
     setClues("clue");
     setButtonClues("buttonClue2")
   };
-//  return  loading ? (
-//    <div className='divLoader'>
-//     <Loading />
-//    </div>)
-//    : 
+
+  if(loading){
+    return <Loading/>
+  }
   
   return <div className='bigHangman'>
     <div className="game-container">
@@ -125,19 +111,24 @@ const Hangman = () =>{
             <img src={selectedWord.img} alt=""/>
           </div>
         </div>
-        <Word selectedWord={selectedWord} correctLetters={correctLetters} />
-        <button className="btnPlayAgain" onClick={playAgain}>Volver a Jugar</button>
 
+        <Word selectedWord={selectedWord} correctLetters={correctLetters} />
+
+        <button className="btnPlayAgain" onClick={playAgain}>Volver a Jugar</button>
 
         <div className='divSolutionDev'>
           <p>*Solo para el desarrollo<br/>
-          La solución es: <span>  {selectedWord.name.toUpperCase()}</span>
+          La solución es: <span>{selectedWord.name.toUpperCase()}</span>
           </p>
+          <p style={{color :"white"}}>Puntos :{score}</p>          
         </div>
       </div>     
     </div>
-    <Popup correctLetters={correctLetters} wrongLetters={wrongLetters} selectedWord={selectedWord} setPlayable={setPlayable} playAgain={playAgain} />
+
+    <Popup correctLetters={correctLetters} wrongLetters={wrongLetters} selectedWord={selectedWord} setPlayable={setPlayable} playAgain={playAgain}/>
+
     <Notification showNotification={showNotification} />
+
   </div> 
 }
 

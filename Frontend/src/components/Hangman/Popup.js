@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { checkWin } from '../../helpers/HelpersHangman'
 import gameOverSound from '../../assets/audio/gameOver.mp3'
 import useSound from 'use-sound';
 
-const Popup = ({ correctLetters, wrongLetters, selectedWord, setPlayable, playAgain }) => {
+const Popup = ({ correctLetters, wrongLetters, selectedWord, setPlayable, playAgain , score}) => {
     const navigate = useNavigate() 
     const [gOverSound] = useSound(gameOverSound);
 
@@ -35,17 +35,19 @@ const Popup = ({ correctLetters, wrongLetters, selectedWord, setPlayable, playAg
                 <h4 className='messengerGameOver'>{finalMessageRevealWord}</h4>
 
                 <div>
-                    <p>SCORE</p>
-                    <p>8050</p>
+                    <p>Tu_Puntaje</p>
+                    <p>{score}</p>
                 </div>
+
+                
                 
                 <div>
-                    <p>YOUR_MAX_SCORE</p>
-                    <p>9430</p>
+                    <p>Tu_Maximo_Puntaje</p>
+                    <p>{score}</p>
                 </div>
 
                 <div>
-                    <p>HIGN_SCORE</p>
+                    <p>MAX_PUNTAJE_GRAL</p>
                     <p>9850</p>
                 </div>
                 
