@@ -3,7 +3,7 @@ import { PutObjectCommand } from "@aws-sdk/client-s3"
 
 const { BUCKET_NAME } = process.env
 
-export default async (reqFiles) => {
+export default (reqFiles) => {
 
   const processedFiles = {}
 
