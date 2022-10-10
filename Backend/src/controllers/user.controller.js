@@ -4,15 +4,15 @@ export const createUser = async (req, res) => {
     try {
         const user = await userClass.createNewUser(req.body);
         if (!user) return res.status(400).send('Mail de usuario ya existente');
-        return res.status(200).send(user);
+        return res.status(200).send("usuario ha sido creado");
     } catch (err) {
         res.status(500).send(err.message)
     }
 }
 
-export const findUserByCategory = async (req, res) => {
+export const findUserById = async (req, res) => {
     try {
-        const foundUser = await userClass.findByCategory(req.body);
+        const foundUser = await userClass.findById(req.body);
         return foundUser ? res.status(200).send(foundUser) : res.status(400).send("Usuario no encontrado");
     } catch (err) {
         res.status(500).send(err.message);
