@@ -1,6 +1,6 @@
 import { validateMovie } from "../models/movieModel.js"
 
-export const uploadedDataValidator = async (req, res, next) => {
+export const uploadedMovieValidator = async (req, res, next) => {
 
     const movieData = {
         ...req.body,

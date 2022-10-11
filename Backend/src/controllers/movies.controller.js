@@ -1,21 +1,23 @@
 import awsS3 from '../config/aws-s3.js'
 import movieClass from '../utils/movieClass.js'
-import filesUploadConfig from '../utils/filesUploadConfig.js'
 import mongoose from 'mongoose'
 import awsFileDeleting from '../utils/awsFileHandle/awsFileDelete.js'
 import awsFileGet from '../utils/awsFileHandle/awsFileGet.js'
+import awsFilePost from '../utils/awsFileHandle/awsFilePost.js'
+
 
 export const createMovie = async (req, res) => {
+
+    const movieProperties = Object.assign({}, req.body)
+
     const session = await mongoose.startSession()
     try {
         session.startTransaction()
-        const files = filesUploadConfig(req.files)
-        for (const file in files) {
-            const fileUpload = await awsS3.send(files[file].command)
-            if (fileUpload.$metadata.httpStatusCode !== 200) throw new Error(fileUpload)
+        for (const fileKey in req.files) {
+            movieProperties[fileKey] = await awsFilePost(req.files[fileKey][0])
         }
 
-        const movie = await movieClass.createNewMovie({ ...req.body, img: files.img.fileName, audio: files.audio.fileName })
+        const movie = await movieClass.createNewMovie(movieProperties)
 
         res.status(200).send(movie)
         await session.commitTransaction()
@@ -42,19 +44,16 @@ export const randomMovie = async (req, res) => {
 export const updateMovie = async (req, res) => {
 
     const id = req.params.id
-    const newProperties = Object.assign({}, req.body)
+    const movieProperties = Object.assign({}, req.body)
 
     const session = await mongoose.startSession()
     try {
         session.startTransaction()
         const movie = await movieClass.findById(id)
         if (req.files) {
-            const files = filesUploadConfig(req.files)
-            for (const file in files) {
-                await awsFileDeleting(movie[file])
-                const fileUpload = await awsS3.send(files[file].command)
-                if (fileUpload.$metadata.httpStatusCode !== 200) throw new Error(fileUpload)
-                newProperties[file] = files[file].fileName
+            for (const fileKey in req.files) {
+                await awsFileDeleting(movie[fileKey])
+                movieProperties[fileKey] = await awsFilePost(req.files[fileKey][0])
             }
         }
 
@@ -70,7 +69,8 @@ export const updateMovie = async (req, res) => {
 
 export const deleteMovie = async (req, res) => {
     try {
-        const deletedMovie = movieClass.deleteById(req.params.id)
+        const deletedMovie = await movieClass.deleteById(req.params.id)
+        await awsFileDeleting(movie.img)
         res.satus(200).send(deletedMovie)
     } catch (err) {
         res.status(500).send(err.message)

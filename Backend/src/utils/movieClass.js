@@ -6,7 +6,7 @@ class Movie extends GlobalClass {
 
     async findByTitle(title) {
         const foundMovie = await this.model.findOne({ $or: [{ englishTitle: title, }, { spanishTitle: title }] });
-        return foundMovie ? foundMovie : false;
+        return foundMovie
     }
 
     async findRandom() {
@@ -27,19 +27,6 @@ class Movie extends GlobalClass {
         });
         return await newMovie.save()
     }
-
-    async updateById(id, updateProps) {
-        const updatedMovie = await this.model.findByIdAndUpdate(id, updateProps, { new: true })
-        return updatedMovie
-    }
-
-    async deleteById(id) {
-        const movie = await this.model.findByIdAndDelete(id)
-        if (!movie) throw new Error("Movie not found")
-        await awsFileDeleting(movie.img)
-        return movie
-    }
-
 }
 
 export default new Movie('movies');
