@@ -1,6 +1,6 @@
 import GlobalClass from "./globalClass.js";
 import { movieModel } from '../models/movieModel.js'
-
+import awsFileDeleting from "./awsFileHandle/awsFileDelete.js";
 
 class Movie extends GlobalClass {
 
@@ -28,14 +28,16 @@ class Movie extends GlobalClass {
         return await newMovie.save()
     }
 
-    async updateMovieByCat(cat, updateInfo) {
-        const updatedMovie = await this.model.findOneAndUpdate({ [cat]: updateInfo }, { new: true });
-        return updatedMovie.length === 0 ? true : false;
+    async updateById(id, updateProps) {
+        const updatedMovie = await this.model.findByIdAndUpdate(id, updateProps, { new: true })
+        return updatedMovie
     }
 
-    async deleteByMovieTitle(title) {
-        const deletedEnglishMovie = this.model.findOneAndDelete({ $or: [{ englishTitle: title }, { spanishTitle: title }] });
-        return deletedEnglishMovie[0].length === 0 ? false : true;
+    async deleteById(id) {
+        const movie = await this.model.findByIdAndDelete(id)
+        if (!movie) throw new Error("Movie not found")
+        await awsFileDeleting(movie.img)
+        return movie
     }
 
 }

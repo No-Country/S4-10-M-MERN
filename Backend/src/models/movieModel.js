@@ -4,11 +4,13 @@ import Joi from "joi"
 const movieSchema = new mongoose.Schema({
     originalTitle: {
         type: String,
+        uppercase: true,
         unique: true,
         required: true
     },
     spanishTitle: {
         type: String,
+        uppercase: true,
         unique: true,
         required: true
     },
