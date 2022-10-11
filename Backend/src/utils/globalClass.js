@@ -8,7 +8,7 @@ export default class Global {
     async findById(id) {
         try {
             const foundUser = await this.model.findById({ id });
-            
+
             return foundUser ? foundUser : false;
         } catch (err) {
             console.log(err);
@@ -25,5 +25,15 @@ export default class Global {
         } catch (err) {
             console.log(err);
         }
+    };
+    async deleteById(id) {
+        try {
+            const item = await this.model.findById({ id });
+            if (!item) throw new Error('The element hasn\'t been found')
+
+        } catch (err) {
+            console.log(err);
+        }
+
     };
 }
