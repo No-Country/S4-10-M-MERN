@@ -56,7 +56,7 @@ class User extends GlobalClass {
         }
     }
 
-    async findByEmail({ email }) {
+    async findByEmail(email) {
         try {
             const user = await this.model.findOne({ email });
             return user ? user : false;
@@ -83,7 +83,7 @@ class User extends GlobalClass {
             if (cat == "username" || cat == "fullName") {
                 await this.model.findByIdAndUpdate(id, { [cat]: update }, { new: true });
                 return true;
-            }
+            }   
             return false;
         } catch (err) {
             console.log(err);
