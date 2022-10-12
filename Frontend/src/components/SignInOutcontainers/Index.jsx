@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import './index.css';
 import  {Paper } from '@mui/material';
 import { Tabs } from '@mui/material';
 import { Tab } from '@mui/material'
 import { Typography } from '@mui/material';
 import { Box } from '@mui/material';
-import Login from '../../src/components/login'
-import Signup from '../../src/components/signup' 
+import Login from '../Login/Index'
+import Signup from '../Signup/Index' 
 
 const SignInOutContainer=()=>{
 const [value,setValue]=useState(0)
@@ -43,6 +44,7 @@ const handleChange = (event, newValue) => {
           variant="fullWidth"
           onChange={handleChange}
           aria-label="disabled tabs example"
+         
         >
           <Tab label="Sign In" />
          

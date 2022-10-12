@@ -1,5 +1,5 @@
 import { Field, Form, Formik, ErrorMessage  } from "formik";
-import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@mui/material'
+import { Grid, Paper, Avatar, TextField, Typography, Link } from '@mui/material'
 import LockIcon from '@mui/icons-material/Lock';
 import { FormControlLabel } from '@mui/material';
 import {Checkbox} from '@mui/material';
@@ -8,7 +8,7 @@ import "./index.css"
 
 const Login = ({ handleChange }) => {
 
-    const paperStyle = { padding: 20, height: '73vh', width: 300, margin: "0 auto" }
+    const paperStyle = { padding: 20, width: 300, margin: "0 auto" }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
     const btnstyle = { margin: '8px 0' }
 
@@ -34,25 +34,18 @@ const Login = ({ handleChange }) => {
             <Paper style={paperStyle}>
                 <Grid align='center'>
                     <Avatar style={avatarStyle}><LockIcon /></Avatar>
-                    <h2>Sign In</h2>
+                    <h2 className="Titulo">Inicio de sesión</h2>
                 </Grid>
                 <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                     {(props) => (
-                        <Form>
-                            <Field as={TextField} label='Username' name="username"
+                        <Form className="formclass">
+                            <Field className="inputLogin"  as={TextField} label='Username' name="username"
                                 placeholder='Enter username' fullWidth required
                                 helperText={<ErrorMessage name="username" />} />
-                            <Field as={TextField} label='Password' name="password"
+                            <Field className="inputLogin" as={TextField} label='Contraseña' name="password"
                                 placeholder="********"  type='password' fullWidth required
-                                helperText={<ErrorMessage name="password" />} />   
-                            <Field as={FormControlLabel}
-                                name='remember'
-                                control={
-                                    <Checkbox  color="primary"/>
-                                }
-                                label="Remember me"/>
-                            <Button type='submit' color='primary' variant="contained" disabled={props.isSubmitting}
-                                style={btnstyle} fullWidth>{props.isSubmitting ? "Loading" : "Sign in"}</Button>
+                                helperText={<ErrorMessage name="password" />} />                             
+                            <button className="buttonLogin" type='submit'>{props.isSubmitting ? "Loading" : "Sign in"}</button>
                         </Form>
                     )}
                 </Formik>
