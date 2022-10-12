@@ -1,11 +1,11 @@
 import express from 'express'
 import { createMovie, deleteMovie, randomMovie, updateMovie } from '../controllers/movies.controller.js'
 import movieFilesHandler from '../middlewares/movieFilesHandler.js'
-import { uploadedDataValidator } from '../middlewares/uploadedDataValidator.js'
+import { uploadedMovieValidator } from '../middlewares/uploadedMovieValidator copy.js'
 const movieRouter = express.Router()
 
 
-movieRouter.post('/', movieFilesHandler, uploadedDataValidator, createMovie)
+movieRouter.post('/', movieFilesHandler, uploadedMovieValidator, createMovie)
 movieRouter.get('/', randomMovie)
 movieRouter.put('/:id', movieFilesHandler, updateMovie)
 movieRouter.delete('/:id', deleteMovie)
