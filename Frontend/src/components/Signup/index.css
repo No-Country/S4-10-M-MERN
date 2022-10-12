@@ -1,0 +1,22 @@
+.Titulo{
+    font-family: OrbitronRegular, sans-serif;
+}
+
+.inputLogin {
+    border: none;
+    border-bottom: 5px solid white ;
+}
+
+
+.buttonLogin{
+    background-color: white;
+    font-family: OrbitronRegular, sans-serif;
+    font-size: 20px;
+    color: #2e0477;
+    border: none;
+    font-family: OrbitronRegular, sans-serif
+}
+
+input {
+    font-family: OrbitronRegular, sans-serif;
+}
