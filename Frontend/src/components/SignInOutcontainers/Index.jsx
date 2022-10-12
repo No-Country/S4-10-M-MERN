@@ -5,8 +5,8 @@ import { Tabs } from '@mui/material';
 import { Tab } from '@mui/material'
 import { Typography } from '@mui/material';
 import { Box } from '@mui/material';
-import Login from '../Login/Index'
-import Signup from '../Signup/Index' 
+import Login from '../Login'
+import Signup from '../Signup' 
 
 const SignInOutContainer=()=>{
 const [value,setValue]=useState(0)
