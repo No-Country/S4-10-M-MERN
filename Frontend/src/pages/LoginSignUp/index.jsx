@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-import SignInOutContainer from "../../components/SignInOutcontainers/Index";
+import SignInOutContainer from "../../components/SignInOutcontainers";
 
 const LoginSignUp = () => {
   return (
