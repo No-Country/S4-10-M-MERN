@@ -7,9 +7,9 @@ export default class Global {
     }
     async findById({ id }) {
         try {
-            const foundDocument = await this.model.findById(id);
-
-            return foundDocument ? foundDocument : false;
+            const item = await this.model.findById(id);
+            if (!item) throw new Error('The element hasn\'t been found')
+            return item
         } catch (err) {
             console.log(err);
         }
@@ -17,13 +17,22 @@ export default class Global {
     };
     async findAll() {
         try {
-            const user = await this.model.find();
+            const allItems = await this.model.find()
+            return allItems
 
-            if (user.length === 0) return false;
-
-            return user;
         } catch (err) {
             console.log(err);
         }
+    }
+
+    async updateById(id, updateProps) {
+        const updatedItem = await this.model.findByIdAndUpdate(id, updateProps, { new: true })
+        return updatedItem
+    }
+
+    async deleteById(id) {
+        const item = await this.model.findByIdAndDelete(id)
+        if (!item) throw new Error('The element hasn\'t been found')
+        return item
     };
 }
