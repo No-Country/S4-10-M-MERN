@@ -9,9 +9,14 @@ class Movie extends GlobalClass {
         return foundMovie ? foundMovie : false;
     }
 
+    async findRandom() {
+        const movie = await this.model.findOne().lean()
+        return movie
+    }
+
     async createNewMovie({ originalTitle, spanishTitle, category, isSerie, img, audio }) {
         const movieExists = await this.model.findOne({ $or: [{ originalTitle }, { spanishTitle }] })
-        if (!movieExists) throw new Error('A movie with the same name has been created');
+        if (movieExists) throw new Error('A movie with the same name has been created');
         const newMovie = new movieModel({
             originalTitle,
             spanishTitle,

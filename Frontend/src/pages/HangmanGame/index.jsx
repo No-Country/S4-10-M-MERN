@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import './index.css';
-import Figure from './Figure';
-import Notification from './Notification';
-import Popup from './Popup';
-import Word from './Word';
-import WrongLetters from './WrongLetters';
+import '../../components/Hangman/index.css';
+import Figure from '../../components/Hangman/Figure';
+import Notification from '../../components/Hangman/Notification';
+import Popup from '../../components/Hangman/Popup';
+import Word from '../../components/Hangman/Word';
+import WrongLetters from '../../components/Hangman/WrongLetters';
 import { notificationPopup } from '../../helpers/HelpersHangman'
 import useSound from 'use-sound';
 import boopSfx from '../../assets/audio/monedaAcierto.mp3'
 import wrongSound from '../../assets/audio/error.mp3'
-import Loading from '../Loading/Loading';
+import Loading from '../../components/Loading/Loading';
 
 const wordsDos = [
   {id:1, name:'intensamente', img:"assets/intensamente.png"},

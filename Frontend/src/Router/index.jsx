@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Hangman from "../components/Hangman";
+import Hangman from "../pages/HangmanGame";
 import Layout from "../components/Layout";
 import { WordleGame } from "../pages/WordleGame";
 

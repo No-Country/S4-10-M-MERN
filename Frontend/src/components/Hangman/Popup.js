@@ -36,28 +36,26 @@ const Popup = ({ correctLetters, wrongLetters, selectedWord, setPlayable, playAg
 
                 <div>
                     <p>Tu_Puntaje</p>
-                    <p>{score}</p>
+                    <p>3300</p>
                 </div>
 
-                
-                
                 <div>
                     <p>Tu_Maximo_Puntaje</p>
-                    <p>{score}</p>
+                    <p>9600</p>
                 </div>
 
                 <div>
-                    <p>MAX_PUNTAJE_GRAL</p>
+                    <p>Max_puntaje_gral</p>
                     <p>9850</p>
                 </div>
                 
                 <br></br>
 
-                <h2>Play Again?</h2>
+                <h2>Volver a Jugar?</h2>
                 
                 <div className='divPlayAgain'>
-                    <h3 onClick={playAgain}>Yes</h3>
-                    <h3 onClick={NotPlayAgain}>No</h3>
+                    <h3 onClick={playAgain}>SI</h3>
+                    <h3 onClick={NotPlayAgain}>NO</h3>
                 </div>
             </div>
         </div>
