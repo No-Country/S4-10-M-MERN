@@ -21,7 +21,7 @@ export const Wordle = ({ solution }) => {
   }, [handleKeyup]);
 
   useEffect(() => {
-    console.log(guesses, turn, isCorrect);
+    //console.log(guesses, turn, isCorrect);
   }, [guesses, turn, isCorrect]);
   {
     /*!isCorrect*/
