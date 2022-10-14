@@ -56,4 +56,4 @@ export const validateMovie = (movie) => {
     return schema.validate(movie)
 }
 
-export const MovieModel = new mongoose.model('movies', movieSchema)
+export const movieModel = mongoose.model('movies', movieSchema)
