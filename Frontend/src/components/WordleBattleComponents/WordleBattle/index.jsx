@@ -16,6 +16,7 @@ function WordleBattle() {
   const solution = "pater"
   const [turn, setTurn] = useState(0);
   const [remotePlay, setRemotePlay] = useState([...Array(6)]);
+  const [gameOver, setGameOver] = useState(false)
   const { currentGuess, guesses, isCorrect, usedKeys, handleKeyup } = useWordle(
     solution,
     turn,
@@ -27,10 +28,17 @@ function WordleBattle() {
     client.on("newPlay", (play) => {
       setRemotePlay(play)
     });
+    client.on("gameEnded", () => {
+      setGameOver(true)
+    })
+
     return () => {
-      client.on("newPlay", (play) => {
+      client.off("newPlay", (play) => {
         setRemotePlay(play)
       });
+      client.off("gameEnded", () => {
+        setGameOver(true)
+      })
     };
   }, [])
 
@@ -43,12 +51,18 @@ function WordleBattle() {
       client.emit(
         "newPlay",location.state.opponent, guesses,
         (res) => {
-          console.log(res.status + " ok");
+          console.log(res.status);
         }
       );
+      if (isCorrect) {
+        client.emit(
+          "gameEnded",
+          (res) => {
+            console.log(res.status)
+          }
+        )
+      }
   }, [guesses]);
-
-  //Envia una jugada al contrincantre
 
   return (
     <div className="radialBackground">
@@ -60,7 +74,7 @@ function WordleBattle() {
       </div>
 
       <Keypad keys={keys} usedKeys={usedKeys} />
-      {(isCorrect || turn >= 6) && <GameOverScreen isCorrect={isCorrect} solution={solution}/>}
+      {(isCorrect || turn >= 6 || gameOver) && <GameOverScreen isCorrect={isCorrect} solution={solution}/>}
 
     </div>
       )
