@@ -7,6 +7,9 @@ export const Header = () => {
       <div className="header__container">
         <nav className="nav-header">
           <ul>
+          <li>
+              <Link to={"/loginSignUp"} className="nav-header__link">AUTENTICARSE</Link>
+            </li>
             <li>
               <Link to={"/wordle"} className="nav-header__link">WORDLE</Link>
             </li>
