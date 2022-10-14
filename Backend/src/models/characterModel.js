@@ -34,4 +34,4 @@ export const validateCharacter = (character) => {
     return schema.validate(character)
 }
 
-export const characterModel = mongoose.model('characters', characterSchema); 
+export const CharacterModel = mongoose.model('characters', characterSchema); 
