@@ -8,13 +8,17 @@ import { corsPermissions } from "./src/middlewares/corsConfig.js"
 import './src/config/db.js';
 import userRouter from './src/routes/user.routes.js'
 import movieRouter from './src/routes/movie.routes.js';
-import {socketIoServer} from "./src/socket.io/server.js";
+import characterRouter from './src/routes/character.routes.js';
+import wordleRouter from './src/routes/wordle.routes.js';
+import { socketIoServer } from "./src/socket.io/server.js";
 
 app.use(cors({ corsPermissions }))
 app.use(helmet());
 
 app.use('/api/v1/user', userRouter)
 app.use('/api/v1/movie', movieRouter)
+app.use('/api/v1/character', characterRouter)
+app.use('/api/v1/word', wordleRouter)
 
 socketIoServer()
 
