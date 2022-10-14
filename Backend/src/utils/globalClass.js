@@ -5,7 +5,7 @@ export default class Global {
         this.collection = collection;
         this.model = mongoose.model(this.collection);
     }
-    async findById({ id }) {
+    async findById(id) {
         try {
             const item = await this.model.findById(id);
             if (!item) throw new Error('The element hasn\'t been found')

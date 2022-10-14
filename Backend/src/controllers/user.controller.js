@@ -23,8 +23,6 @@ export const loginUser = async (req, res) => {
 
         const passwordMatch = await userModel.comparePassword(password, userExists.password);
 
-        console.log(passwordMatch);
-
         if (!passwordMatch) return res.status(500).send("El usuario o contraseña son incorrectos");
 
         const authToken = jwt.sign(
@@ -32,9 +30,10 @@ export const loginUser = async (req, res) => {
             process.env.SECRET_ACCESS_KEY,
             { expiresIn: '5m' }
         )
+
         return res.status(200).send({
             message: "usuario logeado",
-            authToken: loginToken
+            authToken
         });
 
     } catch (err) {
@@ -44,7 +43,7 @@ export const loginUser = async (req, res) => {
 
 export const findUserById = async (req, res) => {
     try {
-        const foundUser = await userClass.findById(req.query);
+        const foundUser = await userClass.findById(req.locals.userId);
         return foundUser ? res.status(200).send(foundUser) : res.status(400).send("Usuario no encontrado");
     } catch (err) {
         res.status(500).send(err.message);
