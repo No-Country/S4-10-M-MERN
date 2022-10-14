@@ -1,4 +1,3 @@
-import awsS3 from '../config/aws-s3.js'
 import movieClass from '../utils/movieClass.js'
 import mongoose from 'mongoose'
 import awsFileDeleting from '../utils/awsFileHandle/awsFileDelete.js'
