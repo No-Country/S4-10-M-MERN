@@ -8,15 +8,29 @@ export const Header = () => {
         <nav className="nav-header">
           <ul>
             <li>
-              <Link to={"/wordle"} className="nav-header__link">WORDLE</Link>
+              <Link to={"/loginSignUp"} className="nav-header__link">
+                AUTENTICARSE
+              </Link>
             </li>
             <li>
-              <Link to={"/hangman"} className="nav-header__link" >
+              <Link to={"/wordle-battle"} className="nav-header__link">
+                WORDLE Battle
+              </Link>
+            </li>
+            <li>
+              <Link to={"/wordle"} className="nav-header__link">
+                WORDLE
+              </Link>
+            </li>
+            <li>
+              <Link to={"/hangman"} className="nav-header__link">
                 AHORCADO
               </Link>
             </li>
             <li>
-              <Link to={"/"} className="nav-header__link">PUNTUACIONES</Link>
+              <Link to={"/"} className="nav-header__link">
+                PUNTUACIONES
+              </Link>
             </li>
           </ul>
         </nav>
