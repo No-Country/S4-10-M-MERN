@@ -6,6 +6,7 @@ import { keys } from "../../WordleComponents/Wordle/keys.js";
 import useWordle from "../../../hooks/useWordle.js";
 import Grid from "../../WordleComponents/Grid";
 import RemoteGrid from "../RemoteGrid/index.jsx";
+import GameOverScreen from "../../GameOverScreen/index.jsx";
 
 import "./index.css";
 
@@ -49,7 +50,7 @@ function WordleBattle() {
 
   //Envia una jugada al contrincantre
 
-  return !isCorrect ? (
+  return (
     <div className="radialBackground">
       <div className="generalText">Solución - {solution}</div>
       <div className="generalText">Actual jugada - {currentGuess}</div>
@@ -59,18 +60,10 @@ function WordleBattle() {
       </div>
 
       <Keypad keys={keys} usedKeys={usedKeys} />
-      {turn >= 6 ? (
-        <h1 style={{ color: "red" }}>
-          No te quedan turnos, la solución era{" "}
-          <span style={{ color: "#f00", fontSize: 42 }}>{solution}</span>
-        </h1>
-      ) : (
-        ""
-      )}
+      {(isCorrect || turn >= 6) && <GameOverScreen isCorrect={isCorrect} solution={solution}/>}
+
     </div>
-  ) : (
-    <div>Ganaste</div>
-  );
+      )
 };
 
 export default WordleBattle;
