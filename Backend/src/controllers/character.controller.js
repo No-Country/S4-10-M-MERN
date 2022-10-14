@@ -3,7 +3,6 @@ import characterClass from '../utils/characterClass.js'
 import mongoose from 'mongoose'
 import awsFileDeleting from '../utils/awsFileHandle/awsFileDelete.js'
 import awsFileGet from '../utils/awsFileHandle/awsFileGet.js'
-import characterClass from '../utils/characterClass.js'
 
 export const createCharacter = async (req, res) => {
 

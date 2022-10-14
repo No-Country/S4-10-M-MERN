@@ -1,6 +1,6 @@
 import GlobalClass from "./globalClass.js";
 import awsFileDeleting from "./awsFileHandle/awsFileDelete.js";
-import { characterModel } from "../models/characterModel.js";
+import { CharacterModel } from "../models/characterModel.js";
 
 class Character extends GlobalClass {
 
@@ -17,7 +17,7 @@ class Character extends GlobalClass {
     async createNewCharacter({ name, aliases, img, characterId }) {
         const characterExists = await this.model.findOne({ name })
         if (characterExists) throw new Error('A character with the same name has been created')
-        const newCharacter = new characterModel({ name, aliases, img, characterId })
+        const newCharacter = new CharacterModel({ name, aliases, img, characterId })
         return await newCharacter.save()
     }
 }
