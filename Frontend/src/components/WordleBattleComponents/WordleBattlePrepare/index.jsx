@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { client } from "../SocketIo";
+import { client } from "../SocketIo/index.js";
 
 import "./index.css";
 

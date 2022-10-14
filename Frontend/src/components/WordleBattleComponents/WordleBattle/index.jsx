@@ -40,7 +40,7 @@ function WordleBattle() {
 
   useEffect(() => {
       client.emit(
-        "newPlay",location.state.contrincante, guesses,
+        "newPlay",location.state.opponent, guesses,
         (res) => {
           console.log(res.status + " ok");
         }
