@@ -1,82 +1,75 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { cliente } from "../SocketIo";
+import { client } from "../SocketIo";
 
 import "./index.css";
 
 
 function WordleBattlePrepare() {
   const navigate = useNavigate();
-  const [miId, setMiId] = useState(cliente.id);
-  const [contrincante, setContrincante] = useState("");
-  const [jugada, setJugada] = useState([
-    "green",
-    "green",
-    "green",
-    "green",
-    "red",
-  ]);
-  const [estado, setEstado] = useState("");
+  const [myId, setMyId] = useState(client.id);
+  const [opponent, setOpponent] = useState("");
+  const [state, setState] = useState("");
   const [copiedId, setCopiedId] = useState(false);
 
   useEffect(() => {
-    const estadoAceptarPartida = () => {
-      setEstado(`Te han invitado a jugar una prtida`);
+    const stateAcceptGame = () => {
+      setState(`Te han invitado a jugar una prtida`);
     }
 
-    const estadoComienzaPartida = (player) => {
-      setContrincante(player);
-      setEstado("Partida aceptada, abriendo el Juego");
-      setTimeout(() => comienzaPartida(), 1000);
+    const stateStartGame = (player) => {
+      setOpponent(player);
+      setState("Partida aceptada, abriendo el Juego");
+      setTimeout(() => startGame(), 1000);
     }
 
-    cliente.on("aceptarPartida", estadoAceptarPartida);
-    cliente.on("comienza partida", estadoComienzaPartida);
+    client.on("acceptGame", stateAcceptGame);
+    client.on("startGame", stateStartGame);
 
     return () => {
-      cliente.off("aceptarPartida", estadoAceptarPartida);
-      cliente.off("comienza partida", estadoComienzaPartida);
+      client.off("acceptGame", stateAcceptGame);
+      client.off("startGame", stateStartGame);
     };
   });
 
-  const guardarContrincante = (e) => {
-    setContrincante(e.target.value);
+  const saveOpponentId = (e) => {
+    setOpponent(e.target.value);
   };
 
-  const enviador = (e) => {
+  const sendId = (e) => {
     e.preventDefault();
-    if (contrincante === miId) {
-      setEstado("No puedes introducir tu propio ID#");
+    if (opponent === myId) {
+      setState("No puedes introducir tu propio ID#");
     } else {
-      cliente.emit(
-        "preparar pratida",
+      client.emit(
+        "prepareGame",
         {
-          emisor: miId,
-          contrincante: contrincante,
+          transmitter: myId,
+          opponent: opponent,
         },
         (response) => {
-          setEstado(`Esperando a que el contrincante acepte la partida`);
+          setState(`Esperando a que el contrincante acepte la partida`);
         }
       );
     }
   };
 
-  const botonAceptar = () => {
-    cliente.emit("partida aceptada", (respuesta) => {
-      setEstado("Has aceptado la partida, abriendo el juego");
-      setContrincante(respuesta.jugador);
-      setTimeout(() => comienzaPartida(respuesta.jugador), 2000);
+  const acceptGame = () => {
+    client.emit("gameAccepted", (res) => {
+      setState("Has aceptado la partida, abriendo el juego");
+      setOpponent(res.player);
+      setTimeout(() => startGame(res.player), 1000);
     });
   };
 
-  const comienzaPartida = (contrincante2) => {
+  const startGame = (opponent2) => {
     navigate("/wordle-battle/game", {
-      state: { id: miId, contrincante, contrincante2 },
+      state: { id: myId, opponent, opponent2 },
     });
   };
 
   const copyIdToClipboard = () => {
-    navigator.clipboard.writeText(miId);
+    navigator.clipboard.writeText(myId);
     setCopiedId(true);
   };
 
@@ -85,7 +78,7 @@ function WordleBattlePrepare() {
       <div className="recuadro">
         <h4 className="generalText">MI ID#:</h4>
         <div className="space">
-          <div className="idToClipboardText">{miId}</div>
+          <div className="idToClipboardText">{myId}</div>
           <div
             className={
               copiedId ? "idToClipboardIconVisited" : "idToClipboardIcon"
@@ -101,9 +94,9 @@ function WordleBattlePrepare() {
         </div>
       </div>
       <button
-        onClick={botonAceptar}
+        onClick={acceptGame}
         className={
-          estado === `Te han invitado a jugar una prtida`
+          state === `Te han invitado a jugar una prtida`
             ? "botonAceptar"
             : "hidden"
         }
@@ -113,11 +106,11 @@ function WordleBattlePrepare() {
       <div className="recuadro">
         <h4 className="generalText">ID# CONTRINCANTE:</h4>
         <div className="space">
-          <form onSubmit={enviador}>
+          <form onSubmit={sendId}>
             <input
               id="idContrincante"
               className="inputIdContrincante"
-              onChange={guardarContrincante}
+              onChange={saveOpponentId}
               type="text"
             />
             <input
@@ -130,7 +123,7 @@ function WordleBattlePrepare() {
         </div>
       </div>
       <p className="generalText">Estado: </p>
-      <p className="estado">{estado}</p>
+      <p className="estado">{state}</p>
     </div>
   );
 }

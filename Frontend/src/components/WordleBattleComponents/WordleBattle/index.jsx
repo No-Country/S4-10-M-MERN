@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { cliente } from "../SocketIo/index.js";
+import { client } from "../SocketIo/index.js";
 import Keypad from "../../WordleComponents/Keypad";
 import { keys } from "../../WordleComponents/Wordle/keys.js";
 import useWordle from "../../../hooks/useWordle.js";
@@ -23,11 +23,11 @@ function WordleBattle() {
 
 
   useEffect(()=>{
-    cliente.on("Nueva Jugada", (play) => {
+    client.on("newPlay", (play) => {
       setRemotePlay(play)
     });
     return () => {
-      cliente.on("Nueva Jugada", (play) => {
+      client.on("newPlay", (play) => {
         setRemotePlay(play)
       });
     };
@@ -39,10 +39,10 @@ function WordleBattle() {
   }, [handleKeyup]);
 
   useEffect(() => {
-      cliente.emit(
-        "Nueva Jugada",location.state.contrincante, guesses,
-        (respuesta) => {
-          console.log(respuesta.status + " ok");
+      client.emit(
+        "newPlay",location.state.contrincante, guesses,
+        (res) => {
+          console.log(res.status + " ok");
         }
       );
   }, [guesses]);
