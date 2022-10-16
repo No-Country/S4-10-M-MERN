@@ -4,7 +4,7 @@ export function socketIoServer() {
 
     let player1
     let player2
-const io = new ServerSocket(3000, {
+const io = new ServerSocket(3300, {
     cors: {
         origin: '*',
     }
