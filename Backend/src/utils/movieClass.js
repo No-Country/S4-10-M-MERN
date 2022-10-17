@@ -1,5 +1,5 @@
 import GlobalClass from "./globalClass.js";
-import { MovieModel } from '../models/movieModel.js'
+import { movieModel } from '../models/movieModel.js'
 import awsFileDeleting from "./awsFileHandle/awsFileDelete.js";
 
 class Movie extends GlobalClass {
@@ -18,7 +18,7 @@ class Movie extends GlobalClass {
     async createNewMovie({ originalTitle, spanishTitle, category, isSerie, img, audio }) {
         const movieExists = await this.model.findOne({ $or: [{ originalTitle }, { spanishTitle }] })
         if (movieExists) throw new Error('A movie with the same name has been created');
-        const newMovie = new MovieModel({
+        const newMovie = new movieModel({
             originalTitle,
             spanishTitle,
             category,
