@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     verToken: String,
+    role: {
+        type: String,
+        default: "user"
+    },
     score: {
         type: Array,
         default: []
