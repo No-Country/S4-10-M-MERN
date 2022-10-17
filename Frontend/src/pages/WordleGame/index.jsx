@@ -26,32 +26,26 @@ export const WordleGame = () => {
   const [solution, setSolution] = useState(null);
   const [loading, setLoading] = useState(true);
 
+
+
   useEffect(() => {
     setLoading(true)
-    // fetch("http://localhost:3001/solutions")
-    //   .then((res) => res.json())
-    //   .then((json) => {
-    //     // random int between 0 & 14
-
-    //     const randomSolution = json[Math.floor(Math.random() * json.length)];
-    //     console.log(randomSolution.word);
-    //     setSolution(randomSolution.word);
-    //   });
+    fetch("http://localhost:8080/api/v1/movie")
+      .then((res) => res.json())
+      .then((json) => {
+        // random int between 0 & 
+  
+        setSolution(json);
+        setLoading(false);
+      });
     
-    const randomSolution =
-    solutionsHarcodeado[
-      Math.floor(Math.random() * solutionsHarcodeado.length)
-    ];
-    setTimeout(() => {
-      setSolution(randomSolution.word);
-      setLoading(false)
-    },1500);
-  }, [setSolution]);
+  }, []);
+  console.log(solution);
 
   return loading ? (
     <div className='divLoader'>
      <Loading />
     </div>): 
   
-    <Wordle solution={solution} />;
+    <Wordle solution={solutionsHarcodeado[0].word} />;
 };

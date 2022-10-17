@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { checkWin } from '../../helpers/HelpersHangman'
-import gameOverSound from '../../assets/audio/gameOver.mp3'
-import useSound from 'use-sound';
+//import gameOverSound from '../../assets/audio/gameOver.mp3'
+//import useSound from 'use-sound';
 
-const Popup = ({ correctLetters, wrongLetters, selectedWord, setPlayable, playAgain , score}) => {
+const Popup = ({ correctLetters, wrongLetters, solution, setPlayable, playAgain , score}) => {
     const navigate = useNavigate() 
-    const [gOverSound] = useSound(gameOverSound);
+    //const [gOverSound] = useSound(gameOverSound);
 
     let finalMessage = '';
     let finalMessageRevealWord = '';
     let playable = true;
     
-    if( checkWin(correctLetters, wrongLetters, selectedWord) === 'win' ) {
+    if( checkWin(correctLetters, wrongLetters, solution) ==='win') {
         finalMessage = 'Congratulations! You won! ';
         playable = false;
-    } else if( checkWin(correctLetters, wrongLetters, selectedWord) === 'lose' ) {
+    } else if(checkWin(correctLetters, wrongLetters, solution)==='lose') {
         finalMessage = 'GAME OVER';
-        finalMessageRevealWord = `Palabra: ${selectedWord.name.toUpperCase()}`;
+        finalMessageRevealWord = `Palabra: ${solution}`;
         playable = false;
     //    gOverSound()
     }

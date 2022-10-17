@@ -11,25 +11,10 @@ import boopSfx from '../../assets/audio/monedaAcierto.mp3'
 import wrongSound from '../../assets/audio/error.mp3'
 import Loading from '../../components/Loading/Loading';
 
-const wordsDos = [
-  {id:1, name:'intensamente', img:"assets/intensamente.png"},
-  {id:2, name:'malefica',img:"assets/malefica.png"},
-  {id:3, name:'zootopia', img:"assets/zootopia.png"},
-  {id:4, name:'ratatouille', img:"assets/ratatouille.png"},
-  {id:5, name:'enredados', img:"assets/enredados.png"}
-];
-
-let selectedWord = wordsDos[Math.floor(Math.random() * wordsDos.length)];
 
 const Hangman = () =>{
-
+  const [solution, setSolution] = useState(null);
   const [loading, setLoading] = useState(true);
-  useEffect(()=>{
-    setTimeout(() => {
-      setLoading(false)
-    },1500);
-  },[])
-
   const [playable, setPlayable] = useState(true)
   const [correctLetters, setCorrectLetters] = useState([])// array de letras 
   const [wrongLetters, setWrongLetters] = useState([])//array de letras incorrectas
@@ -38,13 +23,31 @@ const Hangman = () =>{
   const [errorSound] = useSound(wrongSound);
   
   useEffect(() => {
+    setLoading(true)
+    fetch("http://localhost:8080/api/v1/movie")
+      .then((res) => res.json())
+      .then((json) => {
+        // random int between 0 & 
+        setSolution(json);
+        setLoading(false);
+        console.log(json);
+      });
+      
+    }, [playable]);
+    
+
+
+  useEffect(() => {
     const handleKeydown = event => {
       const { key, keyCode } = event;
       if (playable && keyCode >= 65 && keyCode <= 90) {
-        const letter = key.toLowerCase();
-        
-        if (selectedWord.name.includes(letter)) {
-          
+        const letter = key.toUpperCase();
+        console.log(solution.originalTitle);
+        console.log(solution.originalTitle.split(" ").join(""));
+        console.log(letter);
+
+        if (solution.originalTitle.includes(letter)) {
+          console.log("entra");
           if (!correctLetters.includes(letter)) {  
             correctSound()
             console.log("");
@@ -71,7 +74,7 @@ const Hangman = () =>{
     window.addEventListener('keydown', handleKeydown);
     return () => window.removeEventListener('keydown', handleKeydown)
     
-  },[correctLetters, wrongLetters, playable, correctSound, errorSound])
+  },[correctLetters, wrongLetters, solution, playable, correctSound, errorSound])
 
   const playAgain = () => {
     setPlayable(true);
@@ -79,8 +82,6 @@ const Hangman = () =>{
     setWrongLetters([]);
     setButtonClues("buttonClue2")
     setClues("clueNone");
-    const random = Math.floor(Math.random() * wordsDos.length);
-    selectedWord = wordsDos[random];
   }
   
   const [clue, setClues] = useState("clueNone");
@@ -97,39 +98,60 @@ const Hangman = () =>{
   if(loading){
     return <Loading/>
   }
+
+  const solucionAlterada = solution.originalTitle.split(" ");
   
-  return <div className='bigHangman'>
-    <div className="game-container">
-      <div className='game-container-div'>
-        <div className='div-hangman-wrongLetters'>
-          <Figure wrongLetters={wrongLetters} />
-          <WrongLetters wrongLetters={wrongLetters} />
-          <button className={buttonClue} onClick={changeStyle}>
-            Pista   
+        console.log(solution.originalTitle + "solucion-word", correctLetters);
+  return (
+    <div className="bigHangman">
+      <div className="game-container">
+        <div className="game-container-div">
+          <div className="div-hangman-wrongLetters">
+            <Figure wrongLetters={wrongLetters} />
+            <WrongLetters wrongLetters={wrongLetters} />
+            <button className={buttonClue} onClick={changeStyle}>
+              Pista
+            </button>
+            <div className={clue}>
+              <img src={solution.img} alt="" />
+            </div>
+          </div>
+
+          {solucionAlterada && (
+            <div className='divWords'>
+              {solucionAlterada.map((palabra) => (
+                <Word solution={palabra} correctLetters={correctLetters} />
+              ))}
+            </div>
+          )}
+          {/*<Word solution={solution.originalTitle} correctLetters={correctLetters} />*/}
+
+          <button className="btnPlayAgain" onClick={playAgain}>
+            Volver a Jugar
           </button>
-          <div className={clue}> 
-            <img src={selectedWord.img} alt=""/>
+
+          <div className="divSolutionDev">
+            <p>
+              *Solo para el desarrollo
+              <br />
+              La solución es: <span>{solution.originalTitle}</span>
+            </p>
+            <p style={{ color: "white" }}>Puntos :{score}</p>
           </div>
         </div>
+      </div>
 
-        <Word selectedWord={selectedWord} correctLetters={correctLetters} />
+      <Popup
+        correctLetters={correctLetters}
+        wrongLetters={wrongLetters}
+        solution={solution.originalTitle.split(" ").join("")}
+        setPlayable={setPlayable}
+        playAgain={playAgain}
+      />
 
-        <button className="btnPlayAgain" onClick={playAgain}>Volver a Jugar</button>
-
-        <div className='divSolutionDev'>
-          <p>*Solo para el desarrollo<br/>
-          La solución es: <span>{selectedWord.name.toUpperCase()}</span>
-          </p>
-          <p style={{color :"white"}}>Puntos :{score}</p>          
-        </div>
-      </div>     
+      <Notification showNotification={showNotification} />
     </div>
-
-    <Popup correctLetters={correctLetters} wrongLetters={wrongLetters} selectedWord={selectedWord} setPlayable={setPlayable} playAgain={playAgain}/>
-
-    <Notification showNotification={showNotification} />
-
-  </div> 
+  ); 
 }
 
 export default Hangman;

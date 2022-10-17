@@ -64,9 +64,11 @@
 }
 
 .word {
-    display: flex;
+    display:flex; flex-wrap: wrap;
     /*transform: translateX(-50%);*/
+    gap: 2px;
     margin-top: 40px;
+    justify-content: center;
 }
 
 .letter {
@@ -84,6 +86,15 @@
     text-transform: uppercase;
     font-weight: bold;
     font-size: 2.5em;
+}
+
+.noLetter {
+    background-color: transparent;
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 4px;
+    line-height: 45px;
 }
 
 .popup-container {
@@ -235,4 +246,11 @@
     padding: 8px;
     font-size: 14px;
     margin: 0 auto;
+}
+
+.divWords{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
