@@ -68,7 +68,7 @@ export const updateUserByCategory = async (req, res) => {
 
 export const deleteExistingUser = async (req, res) => {
     try {
-        const deletedUser = await userClass.deleteUser(req.body);
+        const deletedUser = await userClass.deleteUser(req.locals);
         return deletedUser ? res.status(200).send("Usuario eliminado") : res.status(400).send("No se ha podido encontrar el usuario");
     } catch (err) {
         console.log(err.message);
