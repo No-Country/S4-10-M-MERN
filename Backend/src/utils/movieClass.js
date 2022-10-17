@@ -10,7 +10,8 @@ class Movie extends GlobalClass {
     }
 
     async findRandom() {
-        const movie = await this.model.findOne().lean()
+        const numOfMovies = await this.model.countDocuments()
+        const movie = await this.model.findOne().skip(Math.floor(Math.random() * numOfMovies)).lean()
         return movie
     }
 

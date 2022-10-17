@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     verToken: String,
+    role: {
+        type: String,
+        default: "user"
+    },
     score: {
         type: Array,
         default: []
@@ -39,4 +43,4 @@ userSchema.statics.comparePassword = async (password, passwordToCompare) => {
     return await bcrypt.compare(password, passwordToCompare);
 };
 
-export default new mongoose.model('users', userSchema);
+export default mongoose.model('users', userSchema);

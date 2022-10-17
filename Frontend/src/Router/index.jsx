@@ -6,6 +6,7 @@ import { WordleGame } from "../pages/WordleGame";
 import LoginSignUp from "../pages/LoginSignUp";
 import WordleBattlePrepare from "../components/WordleBattleComponents/WordleBattlePrepare";
 import WordleBattle from "../components/WordleBattleComponents/WordleBattle";
+import { SoundGame } from "../pages/SoundGame";
 
 export const AppRoutes = () => {
   return (
@@ -14,6 +15,7 @@ export const AppRoutes = () => {
         <Route path="/hangman" element={<Hangman/>} />
         <Route path="/loginSignUp" element={<LoginSignUp/>} />
         <Route path="/wordle" element={<WordleGame />} />
+        <Route path="/soundgame" element={<SoundGame/>} />
         <Route path="/wordle-battle" element={<WordleBattlePrepare />} />
         <Route path="/wordle-battle/game" element={<WordleBattle />} />
         <Route index element={<h1>ruta raiz</h1>} />

@@ -1,37 +1,48 @@
 import React from "react";
 import "./index.css";
 import { Link, NavLink } from "react-router-dom";
+
+const CustomLink = ({children, to}) =>{
+  return (
+      <li>
+      <Link to={to} className="nav-header__link">
+        {children}
+      </Link>
+    </li>
+  )
+}
+
 export const Header = () => {
   return (
     <header>
       <div className="header__container">
         <nav className="nav-header">
           <ul>
-            <li>
-              <Link to={"/loginSignUp"} className="nav-header__link">
-                AUTENTICARSE
-              </Link>
-            </li>
-            <li>
-              <Link to={"/wordle-battle"} className="nav-header__link">
-                WORDLE Battle
-              </Link>
-            </li>
-            <li>
-              <Link to={"/wordle"} className="nav-header__link">
-                WORDLE
-              </Link>
-            </li>
-            <li>
-              <Link to={"/hangman"} className="nav-header__link">
-                AHORCADO
-              </Link>
-            </li>
-            <li>
-              <Link to={"/"} className="nav-header__link">
-                PUNTUACIONES
-              </Link>
-            </li>
+
+            <CustomLink to={"/loginSignUp"}>
+              ATENTICARSE
+            </CustomLink>
+
+            <CustomLink to={"/wordle-battle"} >
+              WORDLE battle
+            </CustomLink>
+
+            <CustomLink to={"/wordle"}>
+              WORDLE
+            </CustomLink>
+
+            <CustomLink to={"/hangman"}>
+             AHORCADO
+            </CustomLink>
+
+            <CustomLink to={"/soundgame"} >
+              Game Sound 
+            </CustomLink>
+
+            <CustomLink to={"/"} >
+              PUNTUACIONES
+            </CustomLink>
+
           </ul>
         </nav>
       </div>
