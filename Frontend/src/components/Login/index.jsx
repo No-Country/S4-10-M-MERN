@@ -5,6 +5,7 @@ import { FormControlLabel } from '@mui/material';
 import {Checkbox} from '@mui/material';
 import * as Yup from "yup"
 import "./index.css"
+import { API } from "../../helpers/API";
 
 const Login = ({ handleChange }) => {
 
@@ -21,12 +22,13 @@ const Login = ({ handleChange }) => {
         username: Yup.string().min(6, "Password must be at least 6 characters").required("Required"),
         password: Yup.string().required("Required")
     })
-    const onSubmit = (values, props) => {
-        console.log(values)
-        setTimeout(() => {
-            props.resetForm()
-            props.setSubmitting(false)
-        }, 2000)
+    const onSubmit = async (values, props) => {
+        const res = await API.login(values.username, values.password);
+        console.log(res)
+        // setTimeout(() => {
+        //     props.resetForm()
+        //     props.setSubmitting(false)
+        // }, 2000)
 
     }
     return (
