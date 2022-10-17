@@ -1,7 +1,6 @@
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import GlobalClass from "./globalClass.js";
-import e from "express";
 
 class User extends GlobalClass {
 
@@ -83,14 +82,14 @@ class User extends GlobalClass {
             if (cat == "username" || cat == "fullName") {
                 await this.model.findByIdAndUpdate(id, { [cat]: update }, { new: true });
                 return true;
-            }   
+            }
             return false;
         } catch (err) {
             console.log(err);
         }
     }
 
-    async deleteUser({ id }) {
+    async deleteUser(id) {
         try {
             const deletedUser = await this.model.findByIdAndDelete(id);
 
