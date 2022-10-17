@@ -10,7 +10,7 @@ userRouter.post('/login', loginUser);
 
 userRouter.get('/getUserInfo', authenticateUser, findUserById);
 
-userRouter.put('/updateUserInfo', authenticateUser, updateUserByCategory);
+userRouter.patch('/updateUserInfo', authenticateUser, updateUserByCategory);
 
 userRouter.delete('/deleteUser', authenticateUser, roleHandler, deleteExistingUser);
 
