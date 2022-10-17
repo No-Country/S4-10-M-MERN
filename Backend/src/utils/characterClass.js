@@ -10,7 +10,8 @@ class Character extends GlobalClass {
     }
 
     async findRandom() {
-        const character = await this.model.findOne().lean()
+        const numOfCharacters = await this.model.countDocuments()
+        const character = await this.model.findOne().skip(Math.floor(Math.random() * numOfMovies)).lean()
         return character
     }
 
