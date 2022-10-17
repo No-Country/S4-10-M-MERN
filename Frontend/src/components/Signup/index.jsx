@@ -37,10 +37,10 @@ const Signup = () => {
     })
     const onSubmit = (values, props) => {
         console.log(values)
-        setTimeout(() => {
-            props.resetForm()
-            props.setSubmitting(false)
-        }, 2000)
+        // setTimeout(() => {
+        //     props.resetForm()
+        //     props.setSubmitting(false)
+        // }, 2000)
 
     }
     
