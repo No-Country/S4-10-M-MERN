@@ -46,7 +46,7 @@ class User extends GlobalClass {
 
             newUser.verToken = verToken;
 
-            const createdUser = newUser.save();
+            const createdUser = await newUser.save();
 
             return createdUser;
 
@@ -87,6 +87,51 @@ class User extends GlobalClass {
         } catch (err) {
             console.log(err);
         }
+    }
+
+    async updateUserScore(id, newScore, game) {
+        try {
+
+            const scoreToUpdate = this.model.findById(id);
+
+            const allUserScores = scoreToUpdate.scores;
+
+            let gameScoreLocation = 0;
+
+            const gameScore = allUserScores.filter((userScore, index) => userScore.game == game ? gameScoreLocation = index : false);
+
+            if (gameScore.length === 0) {
+
+                scoreToUpdate.scores.push({ game, score: newScore });
+
+            } else {
+
+                scoreToUpdate.scores[index].score.push(newScore);
+
+                scoreToUpdate.save();
+
+                const userHighScore = Math.max(...gameScore.score);
+
+                return userHighScore;
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async getHighScore(game) {
+        const allUsers = await this.model.find();
+
+        const userScores = allUsers.map(user => {
+            const usersGameScores = user.scores.filter(gameScore => {
+                gameScore.game == game;
+            })
+            return usersGameScores.score;
+        });
+
+        const usersHighScore = Math.max(...userScores);
+
+        return usersHighScore;
     }
 
     async deleteUser(id) {
