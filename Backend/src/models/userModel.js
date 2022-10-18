@@ -25,9 +25,19 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "user"
     },
-    score: {
-        type: Array,
-        default: []
+    scores: {
+        type:Array,
+        game: {
+            type: String,
+            enum: {
+                values: ['wordle', 'hangman'],
+                message: '{VALUE} game is not a valid game'
+            }
+        },
+        score: {
+            type: Array,
+            default: []
+        }
     }
 });
 
