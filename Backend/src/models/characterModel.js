@@ -8,7 +8,7 @@ const characterSchema = new mongoose.Schema({
     },
     aliases: {
         type: [String],
-        default: null
+        default: []
     },
     img: {
         type: String,
@@ -23,7 +23,7 @@ const characterSchema = new mongoose.Schema({
 export const validateCharacter = (character) => {
     const schema = Joi.object({
         name: Joi.string().required(),
-        aliases: Joi.array().required(),
+        aliases: Joi.array(),
         img: Joi.object({
             mimetype: Joi.string().regex(/^image/).required().messages({
                 "string.pattern.base": `"img" must have an image extension`

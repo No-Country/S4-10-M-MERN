@@ -29,10 +29,10 @@ export const createMovie = async (req, res) => {
 
 export const randomMovie = async (req, res) => {
     try {
-        const movie = await movieClass.findRandom()
+        const movie = await movieClass.findRandom(req.params.game)
 
-        movie.img = await awsFileGet(movie.img)
-        movie.audio = await awsFileGet(movie.audio)
+        if (movie.img) movie.img = await awsFileGet(movie.img)
+        if (movie.audio) movie.audio = await awsFileGet(movie.audio)
 
         res.status(200).send(movie)
     } catch (err) {

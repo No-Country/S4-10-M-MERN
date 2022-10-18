@@ -26,7 +26,7 @@ export const createCharacter = async (req, res) => {
 
 export const randomCharacter = async (req, res) => {
     try {
-        const character = await characterClass.findRandom()
+        const character = await characterClass.findRandom(req.params.game)
 
         character.img = await awsFileGet(character.img)
 
