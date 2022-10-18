@@ -89,34 +89,39 @@ class User extends GlobalClass {
         }
     }
 
-    async updateUserScore(id, newScore, game) {
-        try {
+    async updateUserScore(id, newScore, gameName) {
 
-            const scoreToUpdate = this.model.findById(id);
+        const userToUpdate = await this.model.findById(id);
 
-            const allUserScores = scoreToUpdate.scores;
+        const allUserScores = userToUpdate.scores;
 
-            let gameScoreLocation = 0;
+        console.log(allUserScores);
 
-            const gameScore = allUserScores.filter((userScore, index) => userScore.game == game ? gameScoreLocation = index : false);
+        const gameScoreIndex = allUserScores.findIndex((games) => {
+            console.log(games.game, gameName);
+            return games.game == gameName
+        });
 
-            if (gameScore.length === 0) {
+        console.log(gameScoreIndex);
 
-                scoreToUpdate.scores.push({ game, score: newScore });
+        if (gameScoreIndex == -1) {
 
-            } else {
+            userToUpdate.scores.push({ game, score: newScore });
 
-                scoreToUpdate.scores[index].score.push(newScore);
+        } else {
 
-                scoreToUpdate.save();
+            userToUpdate.scores[gameScoreIndex].score.push(newScore);
 
-                const userHighScore = Math.max(...gameScore.score);
-
-                return userHighScore;
-            }
-        } catch (err) {
-            console.log(err);
         }
+
+        const updatedUser = await userToUpdate.save();
+        console.log(gameScoreIndex);
+
+        if (updatedUser.errors) throw new Error(updatedUser.errors.message);
+
+        const userHighScore = Math.max(...userToUpdate.scores[gameScoreIndex].score);
+
+        return userHighScore;
     }
 
     async getHighScore(game) {
