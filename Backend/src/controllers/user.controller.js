@@ -43,8 +43,14 @@ export const loginUser = async (req, res) => {
 
 export const findUserById = async (req, res) => {
     try {
-        const foundUser = await userClass.findById(req.locals.userId);
-        return foundUser ? res.status(200).send(foundUser) : res.status(400).send("Usuario no encontrado");
+        const foundUser = await userClass.findById(req.locals);
+        return foundUser ?
+            res.status(200).send({
+                username: foundUser.username,
+                fullName: foundUser.fullName,
+                email: foundUser.email
+            }) :
+            res.status(400).send("Usuario no encontrado");
     } catch (err) {
         res.status(500).send(err.message);
     }
@@ -62,7 +68,7 @@ export const updateUserByCategory = async (req, res) => {
 
 export const deleteExistingUser = async (req, res) => {
     try {
-        const deletedUser = await userClass.deleteUser(req.body);
+        const deletedUser = await userClass.deleteUser(req.locals);
         return deletedUser ? res.status(200).send("Usuario eliminado") : res.status(400).send("No se ha podido encontrar el usuario");
     } catch (err) {
         console.log(err.message);
