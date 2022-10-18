@@ -28,7 +28,6 @@ const setLettersColorsForWord = (solution, currentGuess) => {
       solutionArray[solutionArray.indexOf(l.key)] = null;
     }
   });
-
   return formattedGuess;
 };
 
