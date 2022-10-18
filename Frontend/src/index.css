@@ -1,13 +1,27 @@
+@font-face {
+  font-family: OrbitronRegular;
+  src: url(./fonts/Orbitron-Regular.ttf);
+}
+@font-face {
+  font-family: OrbitronMedium;
+  src: url(./fonts/Orbitron-Medium.ttf);
+}
+/* No usar tildes con esta fuente porque no existen allí */
+@font-face {
+  font-family: Arcade;
+  src: url(./fonts/ARCADE_N.TTF);
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
