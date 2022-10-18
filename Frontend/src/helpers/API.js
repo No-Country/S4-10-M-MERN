@@ -19,8 +19,9 @@ export const API = {
     return { status: res.status, response: finalResponse };
   },
 
-  async register(email, password, fullname, username) {
-    const raw = JSON.stringify({ email, password, fullname, username });
+  async register(email, password, fullName, username) {
+    console.log(email, password, fullName, username);
+    const raw = JSON.stringify({ email, password, fullName, username });
 
     const res = await fetch(applyPath("/api/v1/user/register"), {
       method: "POST",
@@ -29,9 +30,10 @@ export const API = {
       },
       body: raw,
     });
+    console.log(res);
+    
+    const finalResponse = await res.text();
 
-    const finalResponse =
-      res.status == 200 ? await res.json() : await res.text();
     return { status: res.status, response: finalResponse };
   },
 };
