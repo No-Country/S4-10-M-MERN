@@ -7,7 +7,7 @@ const userRouter = express.Router();
 
 userRouter.get('/getUserInfo', authenticateUser, findUserById);
 
-userRouter.get('/score/:game', authenticateUser, getUsersHighScore);
+userRouter.get('/score', authenticateUser, getUsersHighScore);
 
 userRouter.post('/register', registerUser);
 

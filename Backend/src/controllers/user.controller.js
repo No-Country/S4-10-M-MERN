@@ -91,10 +91,12 @@ export const getUsersHighScore = async (req, res) => {
     try {
         const { game } = req.query;
 
-        return await userClass.getHighScore(game);
+        const usersHighScore = await userClass.getHighScore(game);
+
+        return res.status(200).send(usersHighScore)
 
     } catch (error) {
-        res.status(500).json({ message: errorMsg });
+        res.status(500).json({ message: error.message });
     }
 }
 

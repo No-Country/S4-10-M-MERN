@@ -25,8 +25,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "user"
     },
-    scores: {
-        type:Array,
+    scores: [{
         game: {
             type: String,
             enum: {
@@ -38,7 +37,7 @@ const userSchema = new mongoose.Schema({
             type: Array,
             default: []
         }
-    }
+    }]
 });
 
 userSchema.statics.encryptPassword = async (password) => {

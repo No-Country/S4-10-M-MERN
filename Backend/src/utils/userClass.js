@@ -114,28 +114,34 @@ class User extends GlobalClass {
             userToUpdate.scores[gameScoreIndex].score.push(newScore);
         }
 
-        const userHighScore = Math.max(...userToUpdate.scores[gameScoreIndex].score);
-
         const updatedUser = await userToUpdate.save();
+
+        const userHighScore = Math.max(...updatedUser.scores[gameScoreIndex].score);
 
         if (updatedUser.errors) throw new Error(updatedUser.errors.message);
 
         return userHighScore;
     }
 
-    async getHighScore(game) {
+    async getHighScore(gameName) {
         const allUsers = await this.model.find();
 
         const userScores = allUsers.map(user => {
             const usersGameScores = user.scores.filter(gameScore => {
-                gameScore.game == game;
-            })
-            return usersGameScores.score;
+                return gameScore?.game == gameName
+            });
+            return usersGameScores[0]?.score;
         });
 
-        const usersHighScore = Math.max(...userScores);
+        const flatScores = userScores.flat().filter(Boolean);
 
-        return usersHighScore;
+        if (flatScores.length == 0) throw new Error("There's no highScore");
+
+        const usersHighScore = Math.max(...flatScores);
+
+        const highScoreUser = await this.model.findOne({ "scores.score": `${usersHighScore}` });
+
+        return { user: highScoreUser.username, usersHighScore };
     }
 
     async deleteUser(id) {
