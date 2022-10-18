@@ -36,3 +36,7 @@ export default class Global {
         return item
     };
 }
+
+
+
+

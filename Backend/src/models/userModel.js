@@ -25,10 +25,19 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "user"
     },
-    score: {
-        type: Array,
-        default: []
-    }
+    scores: [{
+        game: {
+            type: String,
+            enum: {
+                values: ['wordle', 'hangman'],
+                message: '{VALUE} game is not a valid game'
+            }
+        },
+        score: {
+            type: Array,
+            default: []
+        }
+    }]
 });
 
 userSchema.statics.encryptPassword = async (password) => {
