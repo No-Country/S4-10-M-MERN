@@ -90,36 +90,35 @@ class User extends GlobalClass {
     }
 
     async updateUserScore(id, newScore, gameName) {
-
         const userToUpdate = await this.model.findById(id);
 
         const allUserScores = userToUpdate.scores;
 
-        console.log(allUserScores);
+        let gameScoreIndex = 0;
 
-        const gameScoreIndex = allUserScores.findIndex((games) => {
-            console.log(games.game, gameName);
-            return games.game == gameName
+        const gameScore = allUserScores.filter((userScore, index) => {
+            if (userScore.game == gameName) {
+                gameScoreIndex = index
+                return true
+            } else {
+                return false
+            }
         });
 
-        console.log(gameScoreIndex);
+        if (gameScore.length === 0) {
 
-        if (gameScoreIndex == -1) {
-
-            userToUpdate.scores.push({ game, score: newScore });
+            userToUpdate.scores.push({ game: gameName, score: newScore });
 
         } else {
 
             userToUpdate.scores[gameScoreIndex].score.push(newScore);
-
         }
 
+        const userHighScore = Math.max(...userToUpdate.scores[gameScoreIndex].score);
+
         const updatedUser = await userToUpdate.save();
-        console.log(gameScoreIndex);
 
         if (updatedUser.errors) throw new Error(updatedUser.errors.message);
-
-        const userHighScore = Math.max(...userToUpdate.scores[gameScoreIndex].score);
 
         return userHighScore;
     }
