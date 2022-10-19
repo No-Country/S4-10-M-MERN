@@ -23,7 +23,6 @@ app.use('/api/v1/user', userRouter)
 app.use('/api/v1/movie', movieRouter)
 app.use('/api/v1/character', characterRouter)
 app.use('/api/v1/word', wordleRouter)
-
 socketIoServer()
 
 const PORT = process.env.PORT || 5000;
