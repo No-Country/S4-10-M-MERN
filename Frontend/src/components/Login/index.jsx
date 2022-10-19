@@ -31,7 +31,7 @@ const Login = ({ handleChange }) => {
             
        
         if(res.response.message === "usuario logeado") navigate("/");
-        else alert(res.response)
+        else alert(res.response.message)
         // setTimeout(() => {
         //     props.resetForm()
         //     props.setSubmitting(false)
