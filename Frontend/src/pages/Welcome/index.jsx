@@ -1,20 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./index.css";
-const GameCard = ({ children, gameDescription, to }) => {
+import hangman from "../../assets/images/hangman.svg";
+import wordle from "../../assets/images/wordle.svg";
+import soundGame from "../../assets/images/soundGame.svg";
+import fullColorHearth from "../../assets/images/fullColorHearth.svg";
+
+const GameButton = ({ children, to, imgURL }) => {
+  const mayor = "> ";
   return (
-    <div className="gameCardContainer">
-      <h2>{children}</h2>
-      <img
-        src="https://res.cloudinary.com/richardiral/image/upload/v1665534064/yfe5x1tgowhj4tefbjzd.jpg"
-        alt="imagen juego"
-        width={300}
-        height={"auto"}
-      />
-      <Link className="linkTo" to={to}>
-        Ir al juego
-      </Link>
-    </div>
+    <Link to={to} className="linkTo">
+      {mayor + children} <img src={imgURL} alt="Game Image" height={64} />
+    </Link>
   );
 };
 
@@ -25,18 +22,22 @@ const Welcome = () => {
         <p className="greet">Bienvenido USUARIOX</p>
       </div>
       <div className="gamesInfoContainer">
-        <h1>Estos son los juegos disponibles</h1>
+        <h1>
+          Retrogames <img src={fullColorHearth} alt="Hearth" />
+        </h1>
         <div className="gamesContainer">
-          {/* titulo, foto, descripción y boton para ir a jugar */}
-          <GameCard to={"/wordle-battle"} gameDescription={"No funciona aun"}>
+          <GameButton to={"/wordle-battle"} imgURL={wordle}>
             Wordle Battle
-          </GameCard>
-          <GameCard to={"/wordle"} gameDescription={"No funciona aun"}>
+          </GameButton>
+          <GameButton to={"/wordle"} imgURL={wordle}>
             Wordle
-          </GameCard>
-          <GameCard to={"/hangman"} gameDescription={"No funciona aun"}>
+          </GameButton>
+          <GameButton to={"/hangman"} imgURL={hangman}>
             Ahorcado
-          </GameCard>
+          </GameButton>
+          <GameButton to={""} imgURL={soundGame}>
+            Adivina la música
+          </GameButton>
         </div>
       </div>
     </div>
