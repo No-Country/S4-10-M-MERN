@@ -1,12 +1,14 @@
 import { Field, Form, Formik, ErrorMessage  } from "formik";
-import { Grid, Paper, Avatar, Typography, TextField } from '@mui/material'
+import { Grid, Paper, Avatar, Typography, TextField, Link } from '@mui/material'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { FormControlLabel } from '@mui/material';
 import {Checkbox} from '@mui/material';
 import * as Yup from 'yup';
 import "./index.css"
+import { API } from "../../helpers/API";
 
-const Signup = () => {
+
+const Signup = ({ handleChange }) => {
     const paperStyle = { padding: 20, width: 300, margin: "0 auto" }
     const headerStyle = { margin: 0 }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
@@ -15,16 +17,14 @@ const Signup = () => {
 
     const initialValues = {
         username: '',
-        name: '',
+        fullname: '',
         email: '',
         password: '',
-        passwordConfirm: '',
-        remember: false
-     
+        passwordConfirm: ''      
     }
     const validationSchema = Yup.object().shape({
         username: Yup.string().min(6, "Password must be at least 6 characters").required("Required"),
-        name: Yup.string().required("Required"),
+        fullname: Yup.string().required("Required"),
         email: Yup.string().email('Please enter valid email').required("Required"),
         password: Yup.string()
             .min(6, 'at least 6 chars')
@@ -35,13 +35,22 @@ const Signup = () => {
         passwordConfirm: Yup.string().min(6, "Password must be at least 6 characters").required("Confirm Password is required").oneOf([Yup.ref("password"), null], "Passwords does not match")
         
     })
-    const onSubmit = (values, props) => {
+    const onSubmit = async (values, props) => {
         console.log(values)
-        setTimeout(() => {
-            props.resetForm()
-            props.setSubmitting(false)
-        }, 2000)
+                
+        const res = await API.register(values.email, values.password, values.fullname, values.username);
+        console.log(res)
 
+        if(res.response === "Mail de usuario ya existente") {handleChange("event", 1)}
+        if(res.response === "usuario ha sido creado");
+        //si no se registra: alert de usuario registrado
+        //si se registra. navigate al login
+        
+       
+        // setTimeout(() => {
+        //     props.resetForm()
+        //     props.setSubmitting(false)
+        // }, 2000)
     }
     
     return (
@@ -59,8 +68,8 @@ const Signup = () => {
                         <Form className="formclass">
                             <Field className="inputLogin" as={TextField} fullWidth label='Username' name="username"  placeholder="Enter your Username"
                                 helperText={<ErrorMessage name="username" />} />                           
-                            <Field  className="inputLogin"as={TextField} fullWidth label='Name' name="name" placeholder="Enter your name"
-                                helperText={<ErrorMessage name="name" />} /> 
+                            <Field  className="inputLogin"as={TextField} fullWidth label='Full Name' name="fullname" placeholder="Enter your full name"
+                                helperText={<ErrorMessage name="fullname" />} /> 
                             <Field className="inputLogin" as={TextField} fullWidth label='Email' name="email" placeholder="Enter your email" 
                                 helperText={<ErrorMessage name="email" />} />
                             <Field className="inputLogin"as={TextField} label='Contraseña' name="password"
@@ -73,6 +82,11 @@ const Signup = () => {
                         </Form>
                     )}
                 </Formik>
+             {/*    <Typography > 
+                     <Link href="#" onClick={() => handleChange("event", 1)} >
+                        Sign In
+                </Link>
+                </Typography> */}
             </Paper>
         </Grid>
     )

@@ -9,8 +9,10 @@ class Movie extends GlobalClass {
         return foundMovie
     }
 
-    async findRandom() {
-        const movie = await this.model.findOne().lean()
+    async findRandom(game) {
+        const neededProps = game === "hangedman" ? "originalTitle spanishTitle img" : game === "soundgame" ? "originalTitle spanishTitle img audio" : ""
+        const numOfMovies = await this.model.countDocuments()
+        const movie = await this.model.findOne().select(neededProps).skip(Math.floor(Math.random() * numOfMovies)).lean()
         return movie
     }
 

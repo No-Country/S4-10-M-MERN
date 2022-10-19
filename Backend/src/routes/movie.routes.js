@@ -6,7 +6,7 @@ const movieRouter = express.Router()
 
 
 movieRouter.post('/', movieFilesHandler, uploadedMovieValidator, createMovie)
-movieRouter.get('/', randomMovie)
+movieRouter.get('/:game?', randomMovie)
 movieRouter.put('/:id', movieFilesHandler, updateMovie)
 movieRouter.delete('/:id', deleteMovie)
 

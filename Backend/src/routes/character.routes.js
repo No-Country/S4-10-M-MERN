@@ -5,7 +5,7 @@ import characterFileHandler from '../middlewares/characterFileHandler.js'
 const characterRouter = express.Router()
 
 characterRouter.post('/', characterFileHandler, uploadedCharacterValidator, createCharacter)
-characterRouter.get('/', randomCharacter)
+characterRouter.get('/:game?', randomCharacter)
 characterRouter.put('/:id', characterFileHandler, updateCharacter)
 characterRouter.delete('/:id', deleteCharacter)
 

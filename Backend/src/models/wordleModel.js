@@ -12,7 +12,7 @@ const wordleSchema = new mongoose.Schema({
 
 export const validateWordle = (wordle) => {
     const schema = Joi.object({
-        word: Joi.string().regex(/^[A-Z]{5}$/).required().messages({
+        word: Joi.string().regex(/^[A-Za-z]{5}$/).required().messages({
             "string.pattern.base": `The word must have 5 letters without symbols`
         })
     })

@@ -15,6 +15,8 @@ import { socketIoServer } from "./src/socket.io/server.js";
 
 app.use(cors({ corsPermissions }))
 app.use(helmet());
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 app.use(bodyParser.json());
 

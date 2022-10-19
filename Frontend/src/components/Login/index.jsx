@@ -5,28 +5,37 @@ import { FormControlLabel } from '@mui/material';
 import {Checkbox} from '@mui/material';
 import * as Yup from "yup"
 import "./index.css"
+import { API } from "../../helpers/API";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ handleChange }) => {
-
+    const navigate = useNavigate()
     const paperStyle = { padding: 20, width: 300, margin: "0 auto" }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
     const btnstyle = { margin: '8px 0' }
 
     const initialValues = {
-        username: '',
-        password: '',
-        remember: false
+        email: '',
+        password: ''        
     }
     const validationSchema = Yup.object().shape({
-        username: Yup.string().min(6, "Password must be at least 6 characters").required("Required"),
+        email: Yup.string().email('Please enter valid email').required("Required"),
         password: Yup.string().required("Required")
     })
-    const onSubmit = (values, props) => {
-        console.log(values)
-        setTimeout(() => {
-            props.resetForm()
-            props.setSubmitting(false)
-        }, 2000)
+    const onSubmit = async (values, props) => {
+        console.log(values.email, values.password)
+        
+        const res = await API.login(values.email, values.password);
+        console.log(res.response.message);
+        console.log(res)
+            
+       
+        if(res.response.message === "usuario logeado") navigate("/");
+        else alert(res.response)
+        // setTimeout(() => {
+        //     props.resetForm()
+        //     props.setSubmitting(false)
+        // }, 2000)
 
     }
     return (
@@ -39,9 +48,9 @@ const Login = ({ handleChange }) => {
                 <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                     {(props) => (
                         <Form className="formclass">
-                            <Field className="inputLogin"  as={TextField} label='Username' name="username"
-                                placeholder='Enter username' fullWidth required
-                                helperText={<ErrorMessage name="username" />} />
+                            <Field className="inputLogin"  as={TextField} label='Email' name="email"
+                                placeholder='Enter email' fullWidth required
+                                helperText={<ErrorMessage name="email" />} />
                             <Field className="inputLogin" as={TextField} label='Contraseña' name="password"
                                 placeholder="********"  type='password' fullWidth required
                                 helperText={<ErrorMessage name="password" />} />                             
@@ -49,11 +58,11 @@ const Login = ({ handleChange }) => {
                         </Form>
                     )}
                 </Formik>
-                <Typography >
+              {/*   <Typography >
                     <Link href="#" >
                         Forgot password ?
                 </Link>
-                </Typography>
+                </Typography> */}
                 <Typography > Do you have an account ?
                      <Link href="#" onClick={() => handleChange("event", 1)} >
                         Sign Up

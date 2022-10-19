@@ -1,10 +1,8 @@
-import mongoose from 'mongoose'
 import { WordleModel } from '../models/wordleModel.js'
-
-
 
 export const createWord = async (req, res) => {
     try {
+
         const newWord = new WordleModel(req.body)
         await newWord.save()
         res.status(200).send(newWord)
@@ -16,8 +14,8 @@ export const createWord = async (req, res) => {
 
 export const getRandomWordle = async (req, res) => {
     try {
-        const word = await WordleModel.findOne()
-
+        const numOfWords = await WordleModel.countDocuments()
+        const word = await WordleModel.findOne().skip(Math.floor(Math.random() * numOfWords))
         res.status(200).send(word)
 
     } catch (err) {
