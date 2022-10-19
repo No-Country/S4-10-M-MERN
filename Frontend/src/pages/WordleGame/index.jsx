@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Wordle } from "../../components/WordleComponents/Wordle";
 
 const solutionsHarcodeado = [
-  { id: 1, word: "ninja" },
-  { id: 2, word: "spade" },
+  { id: 1, word: "NINJA" },
+  /*{ id: 2, word: "spade" },
   { id: 3, word: "pools" },
   { id: 4, word: "drive" },
   { id: 5, word: "relax" },
@@ -18,27 +18,25 @@ const solutionsHarcodeado = [
   { id: 12, word: "phone" },
   { id: 13, word: "bling" },
   { id: 14, word: "coins" },
-  { id: 15, word: "hello" },
+  { id: 15, word: "hello" },*/
 ];
 
 export const WordleGame = () => {
   const [solution, setSolution] = useState(null);
 
   useEffect(() => {
-    // fetch("http://localhost:3001/solutions")
-    //   .then((res) => res.json())
-    //   .then((json) => {
+     fetch("http://localhost:8080/api/v1/word")
+       .then((res) => res.json())
+       .then((json) => {
     //     // random int between 0 & 14
-
-    //     const randomSolution = json[Math.floor(Math.random() * json.length)];
-    //     console.log(randomSolution.word);
-    //     setSolution(randomSolution.word);
-    //   });
-    const randomSolution =
-      solutionsHarcodeado[
-        Math.floor(Math.random() * solutionsHarcodeado.length)
-      ];
-    setSolution(randomSolution.word);
+        console.log(json)
+         setSolution(json.word.toLowerCase());
+       });
+//    const randomSolution =
+//      solutionsHarcodeado[
+//        Math.floor(Math.random() * solutionsHarcodeado.length)
+//      ];
+//    setSolution(randomSolution.word.toLowerCase());
   }, [setSolution]);
   return <Wordle solution={solution} />;
 };
