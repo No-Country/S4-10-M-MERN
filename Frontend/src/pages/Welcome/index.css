@@ -1,0 +1,67 @@
+.welcomeContainer {
+  min-height: 100vh;
+  padding: 20px;
+  background: radial-gradient(circle at center, #2e0477, #1d1d1b);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.greenContainer {
+  display: flex;
+  justify-content: right;
+}
+
+.greet {
+  font-family: Arcade, sans-serif;
+  font-size: 32px;
+  text-align: right;
+  background-color: #3d079b;
+  padding: 20px;
+  border-radius: 20px;
+  color: white;
+}
+
+.gamesInfoContainer {
+}
+.gamesInfoContainer h1 {
+  font-family: Arcade, sans-serif;
+  font-size: 32px;
+  text-align: center;
+  color: white;
+}
+
+.gamesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.gameCardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: solid white;
+  width: fit-content;
+  margin: auto;
+  padding: 20px 0;
+}
+.gameCardContainer > h2 {
+  font-family: Arcade, sans-serif;
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  margin: 0;
+}
+
+.linkTo {
+  font-family: Arcade, sans-serif;
+  font-size: 16px;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  background-color: rgb(233, 13, 13);
+  padding: 10px 20px;
+}
