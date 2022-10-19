@@ -5,7 +5,7 @@ const app = express();
 import helmet from "helmet";
 import cors from "cors";
 import { corsPermissions } from "./src/middlewares/corsConfig.js";
-import './src/config/db.js';
+//import './src/config/db.js';
 import userRouter from './src/routes/user.routes.js';
 import movieRouter from './src/routes/movie.routes.js';
 import bodyParser from 'body-parser';
@@ -24,6 +24,9 @@ app.use('/api/v1/user', userRouter)
 app.use('/api/v1/movie', movieRouter)
 app.use('/api/v1/character', characterRouter)
 app.use('/api/v1/word', wordleRouter)
+app.use('health', (req, res) => {
+    res.send({ message: 'Todo bien' })
+})
 
 socketIoServer()
 
