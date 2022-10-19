@@ -4,7 +4,10 @@ import express from "express";
 const app = express();
 import helmet from "helmet";
 import cors from "cors";
+<<<<<<< HEAD
 import { corsPermissions } from "./src/middlewares/corsConfig.js";
+=======
+>>>>>>> 1cb0f0bc94aec0e1e1de8677ac7f1b3f547d2a10
 import './src/config/db.js';
 import userRouter from './src/routes/user.routes.js';
 import movieRouter from './src/routes/movie.routes.js';
@@ -14,7 +17,11 @@ import wordleRouter from './src/routes/wordle.routes.js';
 import { socketIoServer } from "./src/socket.io/server.js";
 
 app.use(cors())
+<<<<<<< HEAD
 // app.use(helmet());
+=======
+app.use(helmet());
+>>>>>>> 1cb0f0bc94aec0e1e1de8677ac7f1b3f547d2a10
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -24,9 +31,6 @@ app.use('/api/v1/user', userRouter)
 app.use('/api/v1/movie', movieRouter)
 app.use('/api/v1/character', characterRouter)
 app.use('/api/v1/word', wordleRouter)
-app.use('health', (req, res) => {
-    res.send({ message: 'Todo bien' })
-})
 
 socketIoServer()
 
