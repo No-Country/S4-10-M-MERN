@@ -13,8 +13,8 @@ import characterRouter from './src/routes/character.routes.js';
 import wordleRouter from './src/routes/wordle.routes.js';
 import { socketIoServer } from "./src/socket.io/server.js";
 
-app.use(cors({ corsPermissions }))
-app.use(helmet());
+// app.use(cors({ corsPermissions }))
+// app.use(helmet());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
