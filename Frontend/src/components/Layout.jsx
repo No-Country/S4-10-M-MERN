@@ -6,7 +6,11 @@ const Layout = () => {
   return (
     <div>
       <Header />
-      <Outlet />
+      <div className="backgroundRadial">
+        <div className="backgroundGrids">
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 };
