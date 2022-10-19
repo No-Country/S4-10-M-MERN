@@ -23,10 +23,6 @@ app.use('/api/v1/user', userRouter)
 app.use('/api/v1/movie', movieRouter)
 app.use('/api/v1/character', characterRouter)
 app.use('/api/v1/word', wordleRouter)
-app.use('/health', (req, res) => {
-    res.send({ message: 'Todo bien' })
-})
-
 socketIoServer()
 
 const PORT = process.env.PORT || 5000;
