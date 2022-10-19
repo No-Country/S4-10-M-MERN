@@ -1,7 +1,6 @@
 .welcomeContainer {
   min-height: 100vh;
   padding: 20px;
-  background: radial-gradient(circle at center, #2e0477, #1d1d1b);
   display: flex;
   flex-direction: column;
   gap: 40px;

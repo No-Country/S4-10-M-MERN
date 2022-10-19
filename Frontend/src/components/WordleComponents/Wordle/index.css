@@ -1,6 +1,4 @@
 .radialBackground {
-  background-size: 40px 40px;
-  background: radial-gradient(circle at center, #2e0477, #1d1d1b);
   font-family: OrbitronRegular;
   padding: 20px 0;
   display: flex;
