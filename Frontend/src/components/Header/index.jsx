@@ -1,11 +1,16 @@
 import React from "react";
 import "./index.css";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import whiteHearth from "../../assets/images/whiteHearth.svg"
+
 export const Header = () => {
   return (
     <header>
       <div className="header__container">
         <nav className="nav-header">
+          <Link to="/" className="logo__container">
+            <h1 className="logo">RETR<img src={whiteHearth} alt="Retro logo" /></h1>
+          </Link>
           <ul>
             <li>
               <Link to={"/login"} className="nav-header__link">
@@ -18,23 +23,8 @@ export const Header = () => {
               </Link>
             </li>
             <li>
-              <Link to={"/wordle-battle"} className="nav-header__link">
-                WORDLE Battle
-              </Link>
-            </li>
-            <li>
-              <Link to={"/wordle"} className="nav-header__link">
-                WORDLE
-              </Link>
-            </li>
-            <li>
-              <Link to={"/hangman"} className="nav-header__link">
-                AHORCADO
-              </Link>
-            </li>
-            <li>
               <Link to={"/"} className="nav-header__link">
-                PUNTUACIONES
+                HOME
               </Link>
             </li>
           </ul>
