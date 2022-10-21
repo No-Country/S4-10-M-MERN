@@ -34,7 +34,7 @@ const movieSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-})
+}, { versionKey: false })
 
 export const validateMovie = (movie) => {
     const schema = Joi.object({

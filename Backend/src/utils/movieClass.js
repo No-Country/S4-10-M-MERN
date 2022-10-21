@@ -1,6 +1,5 @@
 import GlobalClass from "./globalClass.js";
 import { movieModel } from '../models/movieModel.js'
-import awsFileDeleting from "./awsFileHandle/awsFileDelete.js";
 
 class Movie extends GlobalClass {
 
@@ -10,7 +9,7 @@ class Movie extends GlobalClass {
     }
 
     async findRandom(game) {
-        const neededProps = game === "hangedman" ? "originalTitle spanishTitle img" : game === "soundgame" ? "originalTitle spanishTitle img audio" : ""
+        const neededProps = game === "hangman" ? "originalTitle spanishTitle img" : game === "soundgame" ? "originalTitle spanishTitle img audio" : ""
         const numOfMovies = await this.model.countDocuments()
         const movie = await this.model.findOne().select(neededProps).skip(Math.floor(Math.random() * numOfMovies)).lean()
         return movie

@@ -1,4 +1,4 @@
-import userModel from "../models/userModel.js";
+import { UserModel } from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import GlobalClass from "./globalClass.js";
 
@@ -26,33 +26,28 @@ class User extends GlobalClass {
     };
 
     async createNewUser({ username, fullName, email, password }) {
-        try {
-            const userExists = await this.model.findOne({ email });
 
-            if (userExists) return false;
+        const userExists = await this.model.findOne({ $or: [{ email }, { username }] });
+        if (userExists) throw new Error("El email o el username ya se encuentran registrados en la base de datos");
 
-            const newUser = new userModel({
-                username,
-                fullName,
-                email,
-                password: await userModel.encryptPassword(password)
-            });
+        const newUser = new UserModel({
+            username,
+            fullName,
+            email,
+            password: await UserModel.encryptPassword(password)
+        });
 
-            const verToken = jwt.sign(
-                { userId: newUser._id },
-                process.env.SECRET_ACCESS_KEY,
-                { expiresIn: "10m" }
-            );
+        const verToken = jwt.sign(
+            { userId: newUser._id },
+            process.env.SECRET_ACCESS_KEY,
+            { expiresIn: "10m" }
+        );
 
-            newUser.verToken = verToken;
+        newUser.verToken = verToken;
 
-            const createdUser = newUser.save();
+        const createdUser = await newUser.save();
 
-            return createdUser;
-
-        } catch (err) {
-            console.log(err);
-        }
+        return createdUser;
     }
 
     async findByEmail(email) {
@@ -87,6 +82,61 @@ class User extends GlobalClass {
         } catch (err) {
             console.log(err);
         }
+    }
+
+    async updateUserScore(id, newScore, gameName) {
+        const userToUpdate = await this.model.findById(id);
+
+        const allUserScores = userToUpdate.scores;
+
+        let gameScoreIndex = 0;
+
+        const gameScore = allUserScores.filter((userScore, index) => {
+            if (userScore.game == gameName) {
+                gameScoreIndex = index
+                return true
+            } else {
+                return false
+            }
+        });
+
+        if (gameScore.length === 0) {
+
+            userToUpdate.scores.push({ game: gameName, score: newScore });
+
+        } else {
+
+            userToUpdate.scores[gameScoreIndex].score.push(newScore);
+        }
+
+        const updatedUser = await userToUpdate.save();
+
+        const userHighScore = Math.max(...updatedUser.scores[gameScoreIndex].score);
+
+        if (updatedUser.errors) throw new Error(updatedUser.errors.message);
+
+        return userHighScore;
+    }
+
+    async getHighScore(gameName) {
+        const allUsers = await this.model.find();
+
+        const userScores = allUsers.map(user => {
+            const usersGameScores = user.scores.filter(gameScore => {
+                return gameScore?.game == gameName
+            });
+            return usersGameScores[0]?.score;
+        });
+
+        const flatScores = userScores.flat().filter(Boolean);
+
+        if (flatScores.length == 0) throw new Error("There's no highScore");
+
+        const usersHighScore = Math.max(...flatScores);
+
+        const highScoreUser = await this.model.findOne({ "scores.score": `${usersHighScore}` });
+
+        return { user: highScoreUser.username, usersHighScore };
     }
 
     async deleteUser(id) {

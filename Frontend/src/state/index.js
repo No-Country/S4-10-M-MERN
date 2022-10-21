@@ -10,6 +10,7 @@ export const userState = atom({
   key: "userState",
   default: {
     token: "",
+    username: ""
   },
   effects_UNSTABLE: [persistAtom],
 });

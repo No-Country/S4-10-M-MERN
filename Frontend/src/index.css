@@ -25,3 +25,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.backgroundRadial {
+  background: radial-gradient(circle at center, #2e0477, #1d1d1b);
+}
+
+.backgroundGrids {
+  background-size: 80px 80px;
+  background-image: linear-gradient(to right, #ff00e662 1px, transparent 1px),
+    linear-gradient(to bottom, #ff00e662 1px, transparent 1px);
+}

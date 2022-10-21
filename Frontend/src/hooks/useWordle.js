@@ -52,7 +52,7 @@ const useWordle = (solution, turn, setTurn) => {
       // Acción de escribir
       if (/^[A-Za-z]$/.test(key)) {
         if (currentGuess.length < 5) {
-          setCurrentGuess((prev) => prev + key);
+          setCurrentGuess((prev) => prev + key.toLowerCase());
         }
       }
 

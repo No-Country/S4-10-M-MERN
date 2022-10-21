@@ -14,8 +14,8 @@ export const API = {
       body: raw,
     });
 
-    const finalResponse =
-      res.status == 200 ? await res.json() : await res.text();
+    const finalResponse = await res.json();
+    // res.status == 200 ? await res.json() : await res.text();
     return { status: res.status, response: finalResponse };
   },
 
@@ -30,9 +30,8 @@ export const API = {
       },
       body: raw,
     });
-    console.log(res);
-    
-    const finalResponse = await res.text();
+
+    const finalResponse = await res.json();
 
     return { status: res.status, response: finalResponse };
   },
