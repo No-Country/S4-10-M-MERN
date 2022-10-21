@@ -4,7 +4,6 @@ import "./index.css"
 import { API } from "../../helpers/API";
 import { Link, useNavigate } from "react-router-dom";
 
-
 const Signup = ({ handleChange }) => {
     const navigate = useNavigate();
 
@@ -15,17 +14,16 @@ const Signup = ({ handleChange }) => {
         password: '',
         passwordConfirm: ''
     }
+    const required = "Requerido"
+
     const validationSchema = Yup.object().shape({
-        username: Yup.string().min(6, "Password must be at least 6 characters").required("Required"),
-        fullname: Yup.string().required("Required"),
-        email: Yup.string().email('Please enter valid email').required("Required"),
+        username: Yup.string().min(6, "La contraseña debe tener al menos 6 caracteres").required(required),
+        fullname: Yup.string().required(required),
+        email: Yup.string().email("Ingrese un formato de email válido").required(required),
         password: Yup.string()
-            .min(6, 'at least 6 chars')
-            .matches(/[a-z]/, 'at least one lowercase char')
-            .matches(/[A-Z]/, 'at least one uppercase char')
-            .matches(/[a-zA-Z]+[^a-zA-Z\s]+/, 'at least 1 number or special char (@,!,#, etc).')
-            .required("Required"),
-        passwordConfirm: Yup.string().min(6, "Password must be at least 6 characters").required("Confirm Password is required").oneOf([Yup.ref("password"), null], "Passwords does not match")
+            .matches(/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/, "La contraseña debe tener un mínimo de 8 caracteres y poseer al menos un número, un caracter especial, una letra mayúscula y una minúscula.")
+            .required(required),
+        passwordConfirm: Yup.string().required(required).oneOf([Yup.ref("password"), null], "Las contraseñas no coinciden")
 
     })
     const onSubmit = async (values, props) => {
@@ -55,18 +53,16 @@ const Signup = ({ handleChange }) => {
                 <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                     {(props) => (
                         <Form className="formLoginContainer">
-                            <Field className="inputLogin" fullWidth label='Username' name="username" placeholder="Enter your Username"
-                                helperText={<ErrorMessage name="username" />} />
-                            <Field className="inputLogin" fullWidth label='Full Name' name="fullname" placeholder="Enter your full name"
-                                helperText={<ErrorMessage name="fullname" />} />
-                            <Field className="inputLogin" fullWidth label='Email' name="email" placeholder="Enter your email"
-                                helperText={<ErrorMessage name="email" />} />
-                            <Field className="inputLogin" label='Contraseña' name="password"
-                                placeholder="********" type='password' fullWidth required
-                                helperText={<ErrorMessage name="password" />} />
-                            <Field className="inputLogin" label='Confirma contraseña' name="passwordConfirm"
-                                placeholder="********" type='password' fullWidth required
-                                helperText={<ErrorMessage name="passwordConfirm" />} />
+                            <Field className="inputLogin" name="username" placeholder="username" />
+                            <ErrorMessage component="div" name="username" className="errorMsg" />
+                            <Field className="inputLogin" name="fullname" placeholder="full name" />
+                            <ErrorMessage component="div" name="fullname" className="errorMsg" />
+                            <Field className="inputLogin" name="email" placeholder="Enter your email" />
+                            <ErrorMessage component="div" name="email" className="errorMsg" />
+                            <Field className="inputLogin" name="password" placeholder="********" type='password' />
+                            <ErrorMessage component="div" name="password" className="errorMsg" />
+                            <Field className="inputLogin" label='Confirma contraseña' name="passwordConfirm" placeholder="********" type='password' />
+                            <ErrorMessage component="div" name="passwordConfirm" className="errorMsg" />
                             <button className="buttonLogin" type='submit'>{props.isSubmitting ? "Loading" : "Registro"}</button>
                         </Form>
                     )}
