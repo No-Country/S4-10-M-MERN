@@ -24,7 +24,7 @@ const Hangman = () =>{
   
   useEffect(() => {
     setLoading(true)
-    fetch("http://localhost:8080/api/v1/movie")
+    fetch("http://localhost:8080/api/v1/movie/hangedman")
       .then((res) => res.json())
       .then((json) => {
         // random int between 0 & 

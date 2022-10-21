@@ -9,7 +9,8 @@ const setLettersColorsForWord = (solution, currentGuess) => {
   console.log("formatting the guess - ", currentGuess);
   // letras grises (no existen en la palabra)
   let solutionArray = [...solution];
-  let formattedGuess = [...currentGuess].map((letter) => {
+
+  let formattedGuess = [...currentGuess.toUpperCase()].map((letter) => {
     return { key: letter, color: "grey" };
   });
 
@@ -28,6 +29,8 @@ const setLettersColorsForWord = (solution, currentGuess) => {
       solutionArray[solutionArray.indexOf(l.key)] = null;
     }
   });
+
+  console.log(currentGuess);
   return formattedGuess;
 };
 
@@ -38,91 +41,6 @@ const useWordle = (solution, turn, setTurn) => {
   const [isCorrect, setIsCorrect] = useState(false);
   const [usedKeys, setUsedKeys] = useState({}); // {a: 'grey', b: 'green', c: 'yellow'} etc
 
-  // letter = l
-  //formatear una conjetura en una matriz de objetos de letras
-  // e.g. [{key: 'a', color: 'yellow'}]
-  const formatGuess = () => {
-    console.log("formatting the guess - ", currentGuess);
-    let solutionArray = [...solution];
-    let formattedGuess = [...currentGuess].map((letter) => {
-      return { key: letter, color: "grey" };
-    });
-
-    // encuentra letras verdes
-    formattedGuess.forEach((letter, i) => {
-      if (solution[i] === letter.key) {
-        formattedGuess[i].color = "green";
-        solutionArray[i] = null;
-      }
-    });
-
-    // encuentra letras amarillas
-    formattedGuess.forEach((l, i) => {
-      if (solutionArray.includes(l.key) && l.color !== "green") {
-        formattedGuess[i].color = "yellow";
-        solutionArray[solutionArray.indexOf(l.key)] = null;
-      }
-    });
-
-    return formattedGuess;
-  };
-
-  // agrega un nuevo intento  al estado de intentos
-  // actualiza el estado isCorrect si el intento es correcto
-  // cambia el estado del turno (que n° de intento es)
-  const addNewGuess = (formattedGuess) => {
-    if (currentGuess === solution) {
-      setIsCorrect(true);
-    }
-
-    setGuesses((prevGuesses) => {
-      let newGuesses = [...prevGuesses];
-      newGuesses[turn] = formattedGuess;
-      return newGuesses;
-    });
-
-    setHistory((prevHistory) => {
-      return [...prevHistory, currentGuess];
-    });
-
-    setTurn((prevTurn) => {
-      return prevTurn + 1;
-    });
-
-    if (setTurn === 3 ){
-      console.log("llegaste a los tres intentos");
-    }
-
-    setUsedKeys((prevUsedKeys) => {
-      formattedGuess.forEach((letter) => {
-        const currentColor = prevUsedKeys[letter.key];
-
-        if (letter.color === "green") {
-          prevUsedKeys[letter.key] = "green";
-          return;
-        }
-
-        if (letter.color === "yellow" && currentColor !== "green") {
-          prevUsedKeys[letter.key] = "yellow";
-          return;
-        }
-
-        if (letter.color === "grey" && currentColor !== ("green" || "yellow")) {
-          prevUsedKeys[letter.key] = "grey";
-          return;
-        }
-      });
-
-      return prevUsedKeys;
-    });
-    // Reset de casillas
-    setCurrentGuess("");
-  };
-
-  // analizar
-  // maneja el evento keyup y rastrea la conjetura actual
-  // si el usuario presiona enter, agrega la nueva suposición/intento
-  // Agregar un if que chequee el turno, si es superior a 5 que no ejecute nada
   // Maneja el evento keyup y rastrea la conjetura actual
   // Si el usuario presiona enter, agrega la nueva suposición/intento
   // Al presionar Backspace este borra la última letra tipeada

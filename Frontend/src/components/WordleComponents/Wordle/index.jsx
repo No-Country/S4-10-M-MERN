@@ -7,7 +7,7 @@ import Grid from "../Grid";
 import GameOverScreen from "../../GameOverScreen";
 export const Wordle = ({ solution }) => {
 
-  const [encendido, setEncendido] = useState(false);
+
   const [turn, setTurn] = useState(0);
   const { currentGuess, guesses, isCorrect, usedKeys, handleKeyup } = useWordle(
     solution,
