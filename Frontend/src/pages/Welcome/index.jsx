@@ -8,7 +8,7 @@ import fullColorHearth from "../../assets/images/fullColorHearth.svg";
 import wordleBattle from "../../assets/images/wordleBattle.svg";
 import { userState } from "../../state";
 import { useRecoilValue } from "recoil";
-import PageTitle from "../../components/PageTitle/index.jsx";
+import PageTitle from "../../components/PageTitle";
 
 const GameButton = ({ children, to, imgURL }) => {
   const mayor = "> ";
