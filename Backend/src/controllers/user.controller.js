@@ -8,7 +8,7 @@ export const registerUser = async (req, res) => {
     try {
         const user = await userClass.createNewUser(req.body);
         if (!user) return res.status(400).send('Mail de usuario ya existente');
-        return res.status(200).send("usuario ha sido creado");
+        return res.status(200).json({ message: "usuario ha sido creado" });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }

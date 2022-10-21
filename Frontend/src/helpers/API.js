@@ -30,9 +30,8 @@ export const API = {
       },
       body: raw,
     });
-    console.log(res);
 
-    const finalResponse = await res.text();
+    const finalResponse = await res.json();
 
     return { status: res.status, response: finalResponse };
   },

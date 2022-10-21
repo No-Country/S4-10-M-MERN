@@ -15,23 +15,22 @@
   text-decoration: none;
 }
 
-.logo__container>h1 {
+.logo__container > h1 {
   font-family: Arcade, sans-serif;
   color: white;
   margin: 0;
 }
 
-.logo>img {
+.logo > img {
   height: 20px;
-
 }
 
-.nav-header>ul {
+.nav-header > ul {
   display: flex;
   gap: 10px;
 }
 
-.nav-header>ul>li {
+.nav-header > ul > li {
   list-style-type: none;
   font-family: OrbitronMedium;
 }
@@ -39,4 +38,9 @@
 .nav-header__link {
   color: white;
   text-decoration: none;
+  font-size: 16px;
+}
+
+.usernameShadow {
+  text-shadow: 1px 1px 0 black;
 }
