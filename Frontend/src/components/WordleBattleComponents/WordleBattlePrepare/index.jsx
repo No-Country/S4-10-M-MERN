@@ -7,7 +7,7 @@ import "./index.css";
 
 function WordleBattlePrepare() {
   const navigate = useNavigate();
-  const [myId, setMyId] = useState(client.id);
+  const [myId, setMyId] = useState("");
   const [opponent, setOpponent] = useState("");
   const [state, setState] = useState("");
   const [copiedId, setCopiedId] = useState(false);
@@ -23,6 +23,13 @@ function WordleBattlePrepare() {
       setTimeout(() => startGame(), 1000);
     }
 
+    client.connect();
+    client.on("connect", () => {
+      setMyId(client.id)
+      console.log("conectado!")
+    })
+    
+
     client.on("acceptGame", stateAcceptGame);
     client.on("startGame", stateStartGame);
 
@@ -30,7 +37,7 @@ function WordleBattlePrepare() {
       client.off("acceptGame", stateAcceptGame);
       client.off("startGame", stateStartGame);
     };
-  });
+  },[]);
 
   const saveOpponentId = (e) => {
     setOpponent(e.target.value);
@@ -123,7 +130,7 @@ function WordleBattlePrepare() {
         </div>
       </div>
       <p className="generalText">Estado: </p>
-      <p className="estado">{state}</p>
+      <p className="estado">{state}</p> 
     </div>
   );
 }
