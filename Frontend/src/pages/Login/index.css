@@ -12,12 +12,10 @@
     background-color: #f28705;
     box-shadow: -10px 10px 0 0px black;
     display: flex;
-    gap: 20px;
     align-items: center;
     text-align: center;
     padding: 10px 20px;
     text-decoration: none;
-    margin: auto;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -25,11 +23,10 @@
 
 .loginTitle {
     color: white;
-
     font-family: Arcade, sans-serif;
     font-size: 2.5em;
     text-shadow: -5px 5px black;
-    margin-left: 1em;
+    margin: 0.7em 1em;
 }
 
 .formLoginContainer {
@@ -47,6 +44,7 @@
     border: 2px solid black;
     font-size: 1em;
     padding: 0.5em;
+    margin: 0.3em 0;
 }
 
 .buttonLogin {
@@ -58,11 +56,12 @@
     color: #2e0477;
     border: 2px solid black;
     box-shadow: -4px 4px 0 0px black;
+    margin-top: 0.5em;
 }
 
 .loginText {
     font-family: OrbitronRegular, sans-serif;
-    margin-bottom: 1em;
+    margin: 1em 0;
     max-width: 360px;
     text-align: left;
 }
@@ -70,4 +69,11 @@
 .loginLink {
     font-family: OrbitronMedium, sans-serif;
     color: black;
+}
+
+.errorMsg {
+    font-family: OrbitronMedium, sans-serif;
+    max-width: 360px;
+    text-align: left;
+    color: #2e0477;
 }

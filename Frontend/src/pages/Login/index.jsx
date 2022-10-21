@@ -13,8 +13,8 @@ const Login = () => {
         password: ''
     }
     const validationSchema = Yup.object().shape({
-        email: Yup.string().email('Please enter valid email').required("Required"),
-        password: Yup.string().required("Required")
+        email: Yup.string().email("Ingrese un email valido").required("Requerido"),
+        password: Yup.string().required("Requerido")
     })
     const onSubmit = async (values, props) => {
         console.log(values.email, values.password)
@@ -37,11 +37,11 @@ const Login = () => {
                     {(props) => (
                         <Form className="formLoginContainer">
                             <Field className="inputLogin" label='Email' name="email"
-                                placeholder='Enter email' fullWidth required
-                                helperText={<ErrorMessage name="email" />} />
+                                placeholder='Enter email' />
+                            <ErrorMessage component="div" name="email" className="errorMsg" />
                             <Field className="inputLogin" label='Contraseña' name="password"
-                                placeholder="********" type='password' fullWidth required
-                                helperText={<ErrorMessage name="password" />} />
+                                placeholder="********" type='password' />
+                            <ErrorMessage name="password" />
                             <button className="buttonLogin" type='submit'>{props.isSubmitting ? "Loading" : "Sign in"}</button>
                         </Form>
                     )}
