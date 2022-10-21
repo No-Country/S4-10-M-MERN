@@ -2,10 +2,11 @@ import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from 'yup';
 import "./index.css"
 import { API } from "../../helpers/API";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const Signup = ({ handleChange }) => {
+    const navigate = useNavigate();
 
     const initialValues = {
         username: '',
@@ -32,11 +33,18 @@ const Signup = ({ handleChange }) => {
 
         const res = await API.register(values.email, values.password, values.fullname, values.username);
         console.log(res)
-
-        if (res.response === "Mail de usuario ya existente") { handleChange("event", 1) }
-        if (res.response === "usuario ha sido creado");
-        //si no se registra: alert de usuario registrado
-        //si se registra. navigate al login
+       if (res.status === 200) {
+         alert(res.response.message);
+         navigate("/login");
+       } else if (
+         res.response.message ===
+         "El email o el username ya se encuentran registrados en la base de datos"
+       ) {
+         alert("Este username o email ya existen");
+       } else {
+         console.error(res.response.message);
+         alert("Ocurrió un error inesperado");
+       }
     }
 
     return (

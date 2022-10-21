@@ -4,8 +4,11 @@ import * as Yup from "yup"
 import "./index.css"
 import { API } from "../../helpers/API";
 import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { userState } from "../../state";
 
 const Login = () => {
+    const [userData, setUserData] = useRecoilState(userState);
     const navigate = useNavigate()
 
     const initialValues = {
@@ -24,8 +27,19 @@ const Login = () => {
         console.log(res)
 
 
-        if (res.response.message === "usuario logeado") navigate("/");
-        else alert(res.response.message)
+        if (res.status === 200) {
+          setUserData({
+            ...userData,
+            token: res.response.authToken,
+            username: res.response.username,
+          });
+
+          navigate("/");
+        } else if (
+          res.response.message === "El usuario o contraseña son incorrectos"
+        ) {
+          alert(res.response.message);
+        } else alert("Ocurrió un error inesperado");
 
 
     }
