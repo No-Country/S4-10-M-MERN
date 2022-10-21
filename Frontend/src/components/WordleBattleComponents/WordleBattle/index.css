@@ -1,0 +1,28 @@
+.radialBackground {
+  font-family: OrbitronRegular;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.generalText {
+  font-family: OrbitronRegular;
+  color: white;
+  font-size: 20px;
+}
+
+.container-gral {
+  display: inline-flex;
+  flex-direction: row;
+  gap: 10%;
+}
+
+.local-grid {
+  width: 100%;
+}
+
+.remote-grid {
+  width: 100%;
+}

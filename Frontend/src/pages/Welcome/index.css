@@ -1,0 +1,112 @@
+.welcomeContainer {
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.greenContainer {
+  display: flex;
+  justify-content: right;
+}
+
+.greet {
+  font-family: Arcade, sans-serif;
+  font-size: 32px;
+  text-align: right;
+  background-color: #3d079b;
+  padding: 20px;
+  border-radius: 20px;
+  color: white;
+}
+
+.gamesInfoContainer {
+  margin: 0 auto;
+}
+.gamesInfoContainer h1 {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin: 60px -40px 80px;
+  font-family: Arcade, sans-serif;
+  font-size: 50px;
+  color: white;
+  text-shadow: 4px 4px 2px black;
+}
+
+@media (max-width: 700px) {
+  .gamesInfoContainer h1 {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gamesInfoContainer h1 {
+    flex-direction: column;
+    font-size: 30px;
+    margin: 40px -40px 40px;
+    gap: 20px;
+  }
+}
+
+.gamesInfoContainer h1 > img {
+  height: 70px;
+  width: auto;
+}
+
+@media (max-width: 700px) {
+  .gamesInfoContainer h1 img {
+    height: 60px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gamesInfoContainer h1 img {
+    height: 45px;
+  }
+}
+.gamesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.gameCardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: solid white;
+  width: fit-content;
+  margin: auto;
+  padding: 20px 0;
+}
+.gameCardContainer > h2 {
+  font-family: Arcade, sans-serif;
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  margin: 0;
+}
+
+.linkTo {
+  overflow: hidden;
+  font-family: Arcade, sans-serif;
+  background-color: #f28705;
+  color: black;
+  box-shadow: -5px 9px 0 0px #f22f1d;
+  width: 60vw;
+  max-width: 600px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  text-align: center;
+  font-size: 25px;
+  padding: 10px 20px;
+  text-decoration: none;
+  margin: auto;
+}

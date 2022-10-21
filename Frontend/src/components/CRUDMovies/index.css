@@ -1,0 +1,51 @@
+.container {
+    padding: 20px 30px;
+    position: relative;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh;
+    max-width: 100vw;
+    background: radial-gradient(circle at center, #2e0477, #1d1d1b);
+    color: #ccc;
+    font-family: sans-serif;
+}
+
+.formContainer {
+    width: 350px;
+    padding: 16px;
+    border-radius: 10px;
+    margin: auto;
+    border: solid 1px #ccc;
+    background: radial-gradient(circle at center, #3f1588, #2e0477);
+
+}
+
+.form-input {
+    background-color: 3f1588;
+    font-family: sans-serif;
+    border: solid 1px white;
+    padding: 10px;
+    margin: 10px;
+    width: 80%
+}
+
+.checkbox {
+    padding: 10px;
+    margin: 10px;
+    border: solid 1px white;
+}
+
+.button-guardar {
+    margin: 30px;
+    padding: 10px;
+    width: 80%;
+    border: solid 1px white;
+}
+
+.labelsUpload {
+    border: solid 1px white;
+    margin: 10px;
+    padding: 10px;
+}

@@ -1,0 +1,128 @@
+.game-container {
+    padding: 20px 30px;
+    position: relative;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh;
+    min-height: fit-content;
+    max-width: 100vw;
+    gap: 30px;
+}
+
+  .generalText {
+    font-family: OrbitronRegular;
+    color: white;
+    font-size: 20px;
+  }
+  
+  .idToClipboardText {
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-size: 15px;
+    border: 1px solid white;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    background-color: #2e0477;
+  }
+
+  .copy-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .idToClipboardIcon {
+    border: 1px solid white;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: #2e0477;
+    padding: 20px;
+    cursor: pointer;
+  }
+
+  .idToClipboardIconVisited {
+    border: 1px solid white;
+   border-bottom-right-radius: 8px;
+   border-top-right-radius: 8px;
+   background-color: #70579c;
+   padding: 20px;
+   cursor: pointer;
+
+ }
+
+  .space {
+    display: flex;
+  }
+
+  .recuadro {
+    border: 1px solid #888;
+    width: 350px;
+    height: 150px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 30px;
+    border-radius: 20px;
+    display: inline;
+    margin: auto;
+  }
+
+  .inputIdContrincante {
+    border: 1px solid white;
+    height: 40px;
+    width: 200px;
+    background-color: #70579c;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+  }
+
+  .buttonIdContrincante {
+    border: 1px solid white;
+    height: 44px;
+    width: 70px;
+    background-color: #2e0477;
+    color: white;
+    font-weight: bold;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    cursor: pointer;
+  }
+
+  .estado {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: white;
+  }
+
+  p {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .botonAceptar {
+    position: relative;
+    background-color: #2e0477;
+    width: 250px;
+    height: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color: white;
+    border-radius: 20px;
+    border: 1px solid white;
+    animation-name: pulso;
+    animation: pulso 1s linear infinite;
+    cursor: pointer;
+  }
+
+  @keyframes pulso {
+    from {background-color: #2e0477;}
+    to {background-color: #70579c;}
+    from {background-color: #70579c;}
+    to {background-color: #2e0477;}
+
+  }

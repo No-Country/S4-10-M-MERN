@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import Joi from "joi";
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -21,10 +22,23 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     verToken: String,
-    score: {
-        type: Array,
-        default: []
-    }
+    role: {
+        type: String,
+        default: "user"
+    },
+    scores: [{
+        game: {
+            type: String,
+            enum: {
+                values: ['wordle', 'hangman'],
+                message: '{VALUE} game is not a valid game'
+            }
+        },
+        score: {
+            type: Array,
+            default: []
+        }
+    }]
 });
 
 userSchema.statics.encryptPassword = async (password) => {
@@ -39,4 +53,14 @@ userSchema.statics.comparePassword = async (password, passwordToCompare) => {
     return await bcrypt.compare(password, passwordToCompare);
 };
 
-export default new mongoose.model('users', userSchema);
+export const validateUser = (user) => {
+    const schema = Joi.object({
+        username: Joi.string().required(),
+        fullName: Joi.string().required(),
+        email: Joi.string().email().required(),
+        password: Joi.string().required()
+    })
+    return schema.validate(user)
+}
+
+export const UserModel = mongoose.model('users', userSchema);

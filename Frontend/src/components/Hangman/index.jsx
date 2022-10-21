@@ -10,6 +10,8 @@ import useSound from 'use-sound';
 import boopSfx from '../../assets/audio/monedaAcierto.mp3'
 import wrongSound from '../../assets/audio/error.mp3'
 import Loading from '../Loading/Loading';
+import PageTitle from '../PageTitle/index.jsx';
+import hangman from "../../assets/images/hangman.svg";
 
 const wordsDos = [
   {id:1, name:'intensamente', img:"assets/intensamente.png"},
@@ -98,38 +100,39 @@ const Hangman = () =>{
     return <Loading/>
   }
   
-  return <div className='bigHangman'>
-    <div className="game-container">
-      <div className='game-container-div'>
-        <div className='div-hangman-wrongLetters'>
-          <Figure wrongLetters={wrongLetters} />
-          <WrongLetters wrongLetters={wrongLetters} />
-          <button className={buttonClue} onClick={changeStyle}>
-            Pista   
-          </button>
-          <div className={clue}> 
-            <img src={selectedWord.img} alt=""/>
+  return (
+    <>
+      <PageTitle text="Ahorcado" icon={hangman} />
+      <div className="bigHangman">
+        <div className="game-container">
+          <div className="game-container-div">
+            <div className="div-hangman-wrongLetters">
+              <Figure wrongLetters={wrongLetters} />
+              <WrongLetters wrongLetters={wrongLetters} />
+              <button className={buttonClue} onClick={changeStyle}>
+                Pista
+              </button>
+              <div className={clue}>
+                <img src={selectedWord.img} alt="" />
+              </div>
+            </div>
+
+            <Word selectedWord={selectedWord} correctLetters={correctLetters} />
           </div>
         </div>
 
-        <Word selectedWord={selectedWord} correctLetters={correctLetters} />
+        <Popup
+          correctLetters={correctLetters}
+          wrongLetters={wrongLetters}
+          selectedWord={selectedWord}
+          setPlayable={setPlayable}
+          playAgain={playAgain}
+        />
 
-        <button className="btnPlayAgain" onClick={playAgain}>Volver a Jugar</button>
-
-        <div className='divSolutionDev'>
-          <p>*Solo para el desarrollo<br/>
-          La solución es: <span>{selectedWord.name.toUpperCase()}</span>
-          </p>
-          <p style={{color :"white"}}>Puntos :{score}</p>          
-        </div>
-      </div>     
-    </div>
-
-    <Popup correctLetters={correctLetters} wrongLetters={wrongLetters} selectedWord={selectedWord} setPlayable={setPlayable} playAgain={playAgain}/>
-
-    <Notification showNotification={showNotification} />
-
-  </div> 
+        <Notification showNotification={showNotification} />
+      </div>
+    </>
+  ); 
 }
 
 export default Hangman;

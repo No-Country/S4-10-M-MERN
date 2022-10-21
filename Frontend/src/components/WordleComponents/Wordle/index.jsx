@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import "./index.css";
 import Keypad from "../Keypad";
 import { keys } from "./keys";
 import useWordle from "../../../hooks/useWordle";
 import Grid from "../Grid";
-import "./index.css";
+import GameOverScreen from "../../GameOverScreen";
+import PageTitle from "../../PageTitle/index.jsx";
+import wordle from "../../../assets/images/wordle.svg";
 
 export const Wordle = ({ solution }) => {
   const [encendido, setEncendido] = useState(false);
@@ -30,22 +33,12 @@ export const Wordle = ({ solution }) => {
     /*!isCorrect*/
   }
 
-  return !isCorrect ? (
+  return (
     <div className="radialBackground">
-      <div className="generalText">Solución - {solution}</div>
-      <div className="generalText">Actual jugada - {currentGuess}</div>
+      <PageTitle text="Wordle" icon={wordle} />
       <Grid guesses={guesses} currentGuess={currentGuess} turn={turn} />
       <Keypad keys={keys} usedKeys={usedKeys} />
-      {turn >= 6 ? (
-        <h1 style={{ color: "red" }}>
-          No te quedan turnos, la solución era{" "}
-          <span style={{ color: "#f00", fontSize: 42 }}>{solution}</span>
-        </h1>
-      ) : (
-        ""
-      )}
+      {(isCorrect || turn >= 6) && <GameOverScreen isCorrect={isCorrect} solution={solution} />}
     </div>
-  ) : (
-    <div>Ganaste</div>
   );
 };
