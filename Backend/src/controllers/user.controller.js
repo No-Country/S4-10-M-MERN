@@ -1,6 +1,5 @@
-
 import userClass from "../utils/userClass.js"
-import userModel from "../models/userModel.js";
+import { UserModel } from "../models/userModel.js";
 import jwt from 'jsonwebtoken';
 
 const errorMsg = "Ha ocurrido un error por favor intente nuevamente";
@@ -11,7 +10,7 @@ export const registerUser = async (req, res) => {
         if (!user) return res.status(400).send('Mail de usuario ya existente');
         return res.status(200).send("usuario ha sido creado");
     } catch (err) {
-        res.status(500).json({ message: errorMsg });
+        res.status(500).json({ message: err.message });
     }
 }
 
@@ -19,22 +18,23 @@ export const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const userExists = await userClass.findByEmail(email);
+        const user = await userClass.findByEmail(email);
 
-        if (!userExists) return res.status(500).json({ message: "El usuario o contraseña son incorrectos" });
+        if (!user) return res.status(500).json({ message: "El usuario o contraseña son incorrectos" });
 
-        const passwordMatch = await userModel.comparePassword(password, userExists.password);
+        const passwordMatch = await UserModel.comparePassword(password, user.password);
 
         if (!passwordMatch) return res.status(500).json({ message: "El usuario o contraseña son incorrectos" });
 
         const authToken = jwt.sign(
-            { id: userExists._id },
+            { id: user._id },
             process.env.SECRET_ACCESS_KEY,
             { expiresIn: '1h' }
         )
 
         return res.status(200).send({
-            message: "usuario logeado",
+            message: "usuario logueado",
+            username: user.username,
             authToken
         });
 

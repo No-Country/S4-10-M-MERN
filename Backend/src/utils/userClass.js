@@ -1,4 +1,4 @@
-import userModel from "../models/userModel.js";
+import { UserModel } from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import GlobalClass from "./globalClass.js";
 
@@ -26,33 +26,28 @@ class User extends GlobalClass {
     };
 
     async createNewUser({ username, fullName, email, password }) {
-        try {
-            const userExists = await this.model.findOne({ email });
 
-            if (userExists) return false;
+        const userExists = await this.model.findOne({ $or: [{ email }, { username }] });
+        if (userExists) throw new Error("El email o el username ya se encuentran registrados en la base de datos");
 
-            const newUser = new userModel({
-                username,
-                fullName,
-                email,
-                password: await userModel.encryptPassword(password)
-            });
+        const newUser = new UserModel({
+            username,
+            fullName,
+            email,
+            password: await UserModel.encryptPassword(password)
+        });
 
-            const verToken = jwt.sign(
-                { userId: newUser._id },
-                process.env.SECRET_ACCESS_KEY,
-                { expiresIn: "10m" }
-            );
+        const verToken = jwt.sign(
+            { userId: newUser._id },
+            process.env.SECRET_ACCESS_KEY,
+            { expiresIn: "10m" }
+        );
 
-            newUser.verToken = verToken;
+        newUser.verToken = verToken;
 
-            const createdUser = await newUser.save();
+        const createdUser = await newUser.save();
 
-            return createdUser;
-
-        } catch (err) {
-            console.log(err);
-        }
+        return createdUser;
     }
 
     async findByEmail(email) {
