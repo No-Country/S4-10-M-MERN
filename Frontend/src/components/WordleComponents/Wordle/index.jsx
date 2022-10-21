@@ -24,7 +24,10 @@ export const Wordle = ({ solution }) => {
   }, [handleKeyup]);
 
   useEffect(() => {
-    console.log(guesses, turn, isCorrect);
+    console.log(turn ,"log "  ,guesses, turn, isCorrect);
+    if (turn === 2){
+      console.log('llegaste al 2do Turno');
+    }
   }, [guesses, turn, isCorrect]);
   {
     /*!isCorrect*/

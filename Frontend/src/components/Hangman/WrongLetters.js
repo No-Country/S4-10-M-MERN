@@ -4,7 +4,6 @@ const WrongLetters = ({ wrongLetters }) => {
     return (
         <div className='div-wrong-letters-container'>
             <div className="wrong-letters-container">
-                
              {/** {wrongLetters.length > 0 && <p>Erradas</p>} */}  
                 <p>Erradas</p>
 

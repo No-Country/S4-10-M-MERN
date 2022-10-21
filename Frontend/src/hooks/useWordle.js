@@ -62,12 +62,12 @@ const useWordle = (solution, turn, setTurn) => {
 
       // Acción de submit en el Wordle
       if (key === "Enter") {
-         // only add guess if turn is less than 5
-         if (turn > 6) {
-           // Se utilizaron todas las oportunidades
-           console.log("you used all your guesses!");
-              return;
-         }
+        // only add guess if turn is less than 5
+        if (turn > 6) {
+          // Se utilizaron todas las oportunidades
+          console.log("you used all your guesses!");
+          return;
+        }
         // do not allow duplicate words
         // No esta permitido repetir jugadas
         if (history.includes(currentGuess)) {
@@ -96,7 +96,7 @@ const useWordle = (solution, turn, setTurn) => {
           setIsCorrect(true);
         }
 
-            /* Esto lo que hace es agregar nuevas jugadas (todo el texto spliteado al Array de jugadas). Ejemplo:
+        /* Esto lo que hace es agregar nuevas jugadas (todo el texto spliteado al Array de jugadas). Ejemplo:
             [
               0: {  key: 'd', color: 'grey' }, { key: 'a', color: 'green' }, etc (es un array de 5),
               1: {  key: 'd', color: 'grey' }, { key: 'j', color: 'green' }, etc (es un array de 5),
@@ -106,43 +106,43 @@ const useWordle = (solution, turn, setTurn) => {
               5: undefined,
             ]*/
 
-            setGuesses((prevGuesses) => {
-              let newGuesses = [...prevGuesses];
-              newGuesses[turn] = currentWordPlayedWithColors;
-              return newGuesses;
-            });
+        setGuesses((prevGuesses) => {
+          let newGuesses = [...prevGuesses];
+          newGuesses[turn] = currentWordPlayedWithColors;
+          return newGuesses;
+        });
 
-            // setear los colores de las letras para el teclado
-            setUsedKeys((prevUsedKeys) => {
-              currentWordPlayedWithColors.forEach((letter) => {
-                const currentColor = prevUsedKeys[letter.key];
+        // setear los colores de las letras para el teclado
+        setUsedKeys((prevUsedKeys) => {
+          currentWordPlayedWithColors.forEach((letter) => {
+            const currentColor = prevUsedKeys[letter.key];
 
-                // Setean los colores que tendra el teclado, se van agregando más por cada nueva letra jugada
-                if (letter.color === "green" || letter.color === "yellow") {
-                  prevUsedKeys[letter.key] = "green";
-                  return;
-                }
+            // Setean los colores que tendra el teclado, se van agregando más por cada nueva letra jugada
+            if (letter.color === "green" || letter.color === "yellow") {
+              prevUsedKeys[letter.key] = "green";
+              return;
+            }
 
-                if (
-                  letter.color === "grey" &&
-                  currentColor !== ("green" || "yellow")
-                ) {
-                  prevUsedKeys[letter.key] = "grey";
-                  return;
-                }
-              });
+            if (
+              letter.color === "grey" &&
+              currentColor !== ("green" || "yellow")
+            ) {
+              prevUsedKeys[letter.key] = "grey";
+              return;
+            }
+          });
 
-              return prevUsedKeys;
-            });
+          return prevUsedKeys;
+        });
 
-            // agregar jugada al historial
-            setHistory([...history, currentGuess]);
+        // agregar jugada al historial
+        setHistory([...history, currentGuess]);
 
-            // Aumentar el turno
-            setTurn(turn + 1);
+        // Aumentar el turno
+        setTurn(turn + 1);
 
-            // Al finalizar la jugada se formatea la última jugada para poder jugar el nuevo turno
-            setCurrentGuess("");
+        // Al finalizar la jugada se formatea la última jugada para poder jugar el nuevo turno
+        setCurrentGuess("");
       }
     }
   };
