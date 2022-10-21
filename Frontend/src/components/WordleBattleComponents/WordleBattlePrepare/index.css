@@ -6,6 +6,7 @@
     flex-direction: column;
     align-items: center;
     height: 90vh;
+    min-height: fit-content;
     max-width: 100vw;
     gap: 30px;
 }
