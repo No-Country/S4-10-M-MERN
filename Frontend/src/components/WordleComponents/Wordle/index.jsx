@@ -24,10 +24,7 @@ export const Wordle = ({ solution }) => {
   }, [handleKeyup]);
 
   useEffect(() => {
-    console.log(turn ,"log "  ,guesses, turn, isCorrect);
-    if (turn === 2){
-      console.log('llegaste al 2do Turno');
-    }
+    console.log(guesses, turn, isCorrect);
   }, [guesses, turn, isCorrect]);
   {
     /*!isCorrect*/
@@ -38,7 +35,9 @@ export const Wordle = ({ solution }) => {
       <PageTitle text="Wordle" icon={wordle} />
       <Grid guesses={guesses} currentGuess={currentGuess} turn={turn} />
       <Keypad keys={keys} usedKeys={usedKeys} />
-      {(isCorrect || turn >= 6) && <GameOverScreen isCorrect={isCorrect} solution={solution} />}
+      {(isCorrect || turn >= 6) && (
+        <GameOverScreen isCorrect={isCorrect} solution={solution} />
+      )}
     </div>
   );
 };
