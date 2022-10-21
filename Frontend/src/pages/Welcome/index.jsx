@@ -8,6 +8,7 @@ import fullColorHearth from "../../assets/images/fullColorHearth.svg";
 import wordleBattle from "../../assets/images/wordleBattle.svg";
 import { userState } from "../../state";
 import { useRecoilValue } from "recoil";
+import PageTitle from "../../components/PageTitle/index.jsx";
 
 const GameButton = ({ children, to, imgURL }) => {
   const mayor = "> ";
@@ -20,16 +21,14 @@ const GameButton = ({ children, to, imgURL }) => {
 
 const Welcome = () => {
   const userData = useRecoilValue(userState);
-  const {username} = userData;
+  const { username } = userData;
   return (
     <div className="welcomeContainer">
       <div className="greenContainer">
         <p className="greet">Bienvenido {username || "USUARIOX"}</p>
       </div>
       <div className="gamesInfoContainer">
-        <h1>
-          Retrogames <img src={fullColorHearth} alt="Hearth" />
-        </h1>
+        <PageTitle text="Retrogames" icon={fullColorHearth} />
         <div className="gamesContainer">
           <GameButton to={"/wordle-battle"} imgURL={wordleBattle}>
             Wordle Battle
@@ -40,7 +39,7 @@ const Welcome = () => {
           <GameButton to={"/hangman"} imgURL={hangman}>
             Ahorcado
           </GameButton>
-          <GameButton to={""} imgURL={soundGame}>
+          <GameButton to={"/"} imgURL={soundGame}>
             Adivina la musica
           </GameButton>
         </div>

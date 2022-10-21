@@ -8,6 +8,8 @@ import WrongLetters from './WrongLetters';
 import { notificationPopup } from '../../helpers/HelpersHangman'
 import useSound from 'use-sound';
 import boopSfx from '../../assets/audio/monedaAcierto.mp3'
+import PageTitle from '../PageTitle/index.jsx';
+import hangman from "../../assets/images/hangman.svg";
 
 const words = ['tiburon', 'matrix', 'scarface'];
 
@@ -27,23 +29,23 @@ function Hangman() {
   useEffect(() => {
     const handleKeydown = event => {
       const { key, keyCode } = event;
-        if (playable && keyCode >= 65 && keyCode <= 90) {
-          const letter = key.toLowerCase();
-    
-          if (selectedWord.includes(letter)) {
-            if (!correctLetters.includes(letter)) {  
-              setCorrectLetters(curr => [...curr, letter])
-            } else {
-              notificationPopup(setShowNotification)
-            }
+      if (playable && keyCode >= 65 && keyCode <= 90) {
+        const letter = key.toLowerCase();
+
+        if (selectedWord.includes(letter)) {
+          if (!correctLetters.includes(letter)) {
+            setCorrectLetters(curr => [...curr, letter])
           } else {
-            if (!wrongLetters.includes(letter)) {
-              setWrongLetters(curr => [...curr, letter])
-            } else {
-              notificationPopup(setShowNotification)
-            }
+            notificationPopup(setShowNotification)
+          }
+        } else {
+          if (!wrongLetters.includes(letter)) {
+            setWrongLetters(curr => [...curr, letter])
+          } else {
+            notificationPopup(setShowNotification)
           }
         }
+      }
     }
     window.addEventListener('keydown', handleKeydown);
     return () => window.removeEventListener('keydown', handleKeydown)
@@ -61,10 +63,10 @@ function Hangman() {
 
   return (
     <>
-
+      <PageTitle text="Ahorcado" icon={hangman} />
       <div className="game-container">
         <div className='game-container-div'>
-        {<h5>solución: {selectedWord}</h5>}
+          {<h5>solución: {selectedWord}</h5>}
           <div className='div-hangman-wrongLetters'>
             <Figure wrongLetters={wrongLetters} />
             <WrongLetters wrongLetters={wrongLetters} />

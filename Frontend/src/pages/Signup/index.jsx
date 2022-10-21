@@ -17,7 +17,7 @@ const Signup = ({ handleChange }) => {
     const required = "Requerido"
 
     const validationSchema = Yup.object().shape({
-        username: Yup.string().min(6, "La contraseña debe tener al menos 6 caracteres").required(required),
+        username: Yup.string().min(6, "El username debe tener al menos 6 caracteres").required(required),
         fullname: Yup.string().required(required),
         email: Yup.string().email("Ingrese un formato de email válido").required(required),
         password: Yup.string()
@@ -31,18 +31,18 @@ const Signup = ({ handleChange }) => {
 
         const res = await API.register(values.email, values.password, values.fullname, values.username);
         console.log(res)
-       if (res.status === 200) {
-         alert(res.response.message);
-         navigate("/login");
-       } else if (
-         res.response.message ===
-         "El email o el username ya se encuentran registrados en la base de datos"
-       ) {
-         alert("Este username o email ya existen");
-       } else {
-         console.error(res.response.message);
-         alert("Ocurrió un error inesperado");
-       }
+        if (res.status === 200) {
+            alert(res.response.message);
+            navigate("/login");
+        } else if (
+            res.response.message ===
+            "El email o el username ya se encuentran registrados en la base de datos"
+        ) {
+            alert("Este username o email ya existen");
+        } else {
+            console.error(res.response.message);
+            alert("Ocurrió un error inesperado");
+        }
     }
 
     return (
