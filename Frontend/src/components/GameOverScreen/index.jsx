@@ -1,7 +1,7 @@
 import React from 'react';
 import "./index.css";
 import { useNavigate } from "react-router-dom";
-export default function GameOverScreen ({ isCorrect, solution }) {
+export default function GameOverScreen ({ isCorrect, solution, redirect }) {
     const navigate = useNavigate();
     const finalMessage = isCorrect ? "Ganaste" : "Perdiste";
     const finalMessageRevealWord = "La palabra era: " + solution;
@@ -14,7 +14,7 @@ export default function GameOverScreen ({ isCorrect, solution }) {
     // Al volver a jugar reiniciar los datos. Evitar recargar la página.
     //Esta función debería de formatear datos, etc etc. Cambiar luego
     function playAgain() {
-        window.location.reload();
+        redirect ? navigate(redirect) : window.location.reload();
     }
 
     return (

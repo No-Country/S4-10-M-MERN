@@ -5,6 +5,9 @@ import { keys } from "./keys";
 import useWordle from "../../../hooks/useWordle";
 import Grid from "../Grid";
 import GameOverScreen from "../../GameOverScreen";
+import PageTitle from "../../PageTitle/index.jsx";
+import wordle from "../../../assets/images/wordle.svg";
+
 export const Wordle = ({ solution }) => {
   const [encendido, setEncendido] = useState(false);
   const [turn, setTurn] = useState(0);
@@ -29,11 +32,10 @@ export const Wordle = ({ solution }) => {
 
   return (
     <div className="radialBackground">
-      <div className="generalText">Solucion - {solution}</div>
-      <div className="generalText">Actual jugada - {currentGuess}</div>
+      <PageTitle text="Wordle" icon={wordle} />
       <Grid guesses={guesses} currentGuess={currentGuess} turn={turn} />
       <Keypad keys={keys} usedKeys={usedKeys} />
-      {(isCorrect || turn >= 6) && <GameOverScreen isCorrect={isCorrect} solution={solution}/>}
+      {(isCorrect || turn >= 6) && <GameOverScreen isCorrect={isCorrect} solution={solution} />}
     </div>
-  ); 
+  );
 };
