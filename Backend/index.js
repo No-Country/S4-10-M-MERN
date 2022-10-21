@@ -12,7 +12,8 @@ import characterRouter from './src/routes/character.routes.js';
 import wordleRouter from './src/routes/wordle.routes.js';
 import { socketIoServer } from "./src/socket.io/server.js";
 import { Server } from "socket.io";
-import {WordleModel} from "./src/models/wordleModel.js"
+import {WordleModel} from "./src/models/wordleModel.js";
+import { createServer } from "http";
 
 app.use(cors())
 app.use(helmet());
