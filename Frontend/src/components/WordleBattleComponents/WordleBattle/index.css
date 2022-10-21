@@ -13,8 +13,16 @@
   font-size: 20px;
 }
 
-.container {
-  display: flex;
+.container-gral {
+  display: inline-flex;
   flex-direction: row;
   gap: 10%;
+}
+
+.local-grid {
+  width: 100%;
+}
+
+.remote-grid {
+  width: 100%;
 }
