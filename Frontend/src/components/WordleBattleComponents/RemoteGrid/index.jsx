@@ -7,7 +7,7 @@ export default function RemoteGrid({ guesses }) {
   return (
     <div>
       {guesses.map((g, i) => {
-        return <RemoteRow guess={g} />;
+        return <RemoteRow guess={g} key={i}/>;
       })}
     </div>
   );

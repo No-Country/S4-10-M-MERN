@@ -4,7 +4,6 @@ import { client } from "../SocketIo/index.js";
 
 import "./index.css";
 
-
 function WordleBattlePrepare() {
   const navigate = useNavigate();
   const [myId, setMyId] = useState("");
@@ -15,21 +14,25 @@ function WordleBattlePrepare() {
   useEffect(() => {
     const stateAcceptGame = () => {
       setState(`Te han invitado a jugar una prtida`);
-    }
+    };
 
     const stateStartGame = (player) => {
       setOpponent(player);
       setState("Partida aceptada, abriendo el Juego");
       setTimeout(() => startGame(), 1000);
+    };
+
+   
+
+    if (Boolean(client.id)) {
+      setMyId(client.id);
+    } else{
+      client.on("connect", () => {
+        client.connect();
+        setMyId(client.id);
+        console.log("conectado!");
+      });
     }
-
-    client.connect();
-    client.on("connect", () => {
-      setMyId(client.id)
-      console.log("conectado!")
-    })
-    
-
     client.on("acceptGame", stateAcceptGame);
     client.on("startGame", stateStartGame);
 
@@ -37,7 +40,7 @@ function WordleBattlePrepare() {
       client.off("acceptGame", stateAcceptGame);
       client.off("startGame", stateStartGame);
     };
-  },[]);
+  }, []);
 
   const saveOpponentId = (e) => {
     setOpponent(e.target.value);
@@ -130,7 +133,7 @@ function WordleBattlePrepare() {
         </div>
       </div>
       <p className="generalText">Estado: </p>
-      <p className="estado">{state}</p> 
+      <p className="estado">{state}</p>
     </div>
   );
 }
