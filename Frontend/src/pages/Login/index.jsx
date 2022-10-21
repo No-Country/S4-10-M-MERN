@@ -46,7 +46,7 @@ const Login = () => {
                         </Form>
                     )}
                 </Formik>
-                <p className="loginText">¿No tenés una cuenta? Creala haciendo click <Link to={"/signin"} className="loginLink">Acá</Link></p>
+                <p className="loginText">¿No tenés una cuenta? Creala haciendo click <Link to={"/signup"} className="loginLink">Acá</Link></p>
             </main>
         </div>
     )

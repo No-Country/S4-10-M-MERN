@@ -36,7 +36,7 @@ const Welcome = () => {
             Ahorcado
           </GameButton>
           <GameButton to={""} imgURL={soundGame}>
-            Adivina la música
+            Adivina la musica
           </GameButton>
         </div>
       </div>

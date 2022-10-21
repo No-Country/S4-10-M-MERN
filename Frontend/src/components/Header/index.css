@@ -1,18 +1,37 @@
 .header__container {
   background: rgb(233, 13, 13);
 }
+
 .nav-header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0 20px;
-  max-width: 1200px;
   margin: auto;
 }
-.nav-header > ul {
+
+.logo__container {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo__container>h1 {
+  font-family: Arcade, sans-serif;
+  color: white;
+  margin: 0;
+}
+
+.logo>img {
+  height: 20px;
+
+}
+
+.nav-header>ul {
   display: flex;
   gap: 10px;
 }
-.nav-header > ul > li {
+
+.nav-header>ul>li {
   list-style-type: none;
   font-family: OrbitronMedium;
 }
