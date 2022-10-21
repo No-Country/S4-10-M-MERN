@@ -8,8 +8,13 @@ export const Header = () => {
         <nav className="nav-header">
           <ul>
             <li>
-              <Link to={"/loginSignUp"} className="nav-header__link">
-                AUTENTICARSE
+              <Link to={"/login"} className="nav-header__link">
+                LOGIN
+              </Link>
+            </li>
+            <li>
+              <Link to={"/signup"} className="nav-header__link">
+                SIGNUP
               </Link>
             </li>
             <li>
