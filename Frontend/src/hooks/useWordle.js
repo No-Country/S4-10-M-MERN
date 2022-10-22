@@ -9,8 +9,7 @@ const setLettersColorsForWord = (solution, currentGuess) => {
   console.log("formatting the guess - ", currentGuess);
   // letras grises (no existen en la palabra)
   let solutionArray = [...solution];
-
-  let formattedGuess = [...currentGuess.toUpperCase()].map((letter) => {
+  let formattedGuess = [...currentGuess].map((letter) => {
     return { key: letter, color: "grey" };
   });
 
@@ -30,7 +29,6 @@ const setLettersColorsForWord = (solution, currentGuess) => {
     }
   });
 
-  console.log(currentGuess);
   return formattedGuess;
 };
 

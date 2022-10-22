@@ -64,8 +64,8 @@ function WordleBattle() {
 
   return (
     <div className="radialBackground">
-      <div className="generalText">Solución - {solution}</div>
-      <div className="generalText">Actual jugada - {currentGuess}</div>
+      {/* <div className="generalText">Solución - {solution}</div>
+      <div className="generalText">Actual jugada - {currentGuess}</div> */}
       <div className="container-gral">
         <div className="local-grid">
           <Grid guesses={guesses} currentGuess={currentGuess} turn={turn} />
