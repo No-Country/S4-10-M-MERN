@@ -10,7 +10,7 @@ import movieRouter from './src/routes/movie.routes.js';
 import bodyParser from 'body-parser';
 import characterRouter from './src/routes/character.routes.js';
 import wordleRouter from './src/routes/wordle.routes.js';
-import { socketIoServer } from "./src/socket.io/server.js";
+//import { socketIoServer } from "./src/socket.io/server.js";
 import { Server } from "socket.io";
 import {WordleModel} from "./src/models/wordleModel.js";
 import { createServer } from "http";
@@ -41,7 +41,7 @@ const io = new Server(httpServer, {
 
 io.on('connection', (socket) => {
 
-    socket.on("prepareGame", async (datos, callback) => {
+    socket.on("prepareGame", (datos, callback) => {
         player1 = datos.transmitter;
         player2 = datos.opponent;
           callback({

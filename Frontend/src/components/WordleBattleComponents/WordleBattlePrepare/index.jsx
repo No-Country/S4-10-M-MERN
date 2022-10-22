@@ -22,13 +22,11 @@ function WordleBattlePrepare() {
       setTimeout(() => startGame(), 1000);
     };
 
-   
-
     if (Boolean(client.id)) {
       setMyId(client.id);
-    } else{
+    } else {
+      client.connect();
       client.on("connect", () => {
-        client.connect();
         setMyId(client.id);
         console.log("conectado!");
       });
