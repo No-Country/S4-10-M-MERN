@@ -29,7 +29,7 @@
     display: none;
 }
 
-.wrong-letters-container {
+.wrong-letters-container{
     width: 150px;
     display: flex;
     margin-top:18px ;
@@ -38,7 +38,6 @@
     background-color: rgba(0, 0, 0, 0.3); 
     font-family: OrbitronRegular;
     align-items: center;
-
 }
 
 .wrong-letters-container p {
@@ -63,9 +62,11 @@
 }
 
 .word {
-    display: flex;
+    display:flex; flex-wrap: wrap;
     /*transform: translateX(-50%);*/
+    gap: 2px;
     margin-top: 40px;
+    justify-content: center;
 }
 
 .letter {
@@ -83,6 +84,15 @@
     text-transform: uppercase;
     font-weight: bold;
     font-size: 2.5em;
+}
+
+.noLetter {
+    background-color: transparent;
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 4px;
+    line-height: 45px;
 }
 
 .popup-container {
@@ -234,4 +244,11 @@
     padding: 8px;
     font-size: 14px;
     margin: 0 auto;
+}
+
+.divWords{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }

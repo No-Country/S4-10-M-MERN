@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import Loading from "../../components/Loading/Loading";
 import { Wordle } from "../../components/WordleComponents/Wordle";
 
 const solutionsHarcodeado = [
@@ -24,7 +23,6 @@ const solutionsHarcodeado = [
 
 export const WordleGame = () => {
   const [solution, setSolution] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://s4-10-m-mern-production.up.railway.app/api/v1/word")
@@ -40,12 +38,5 @@ export const WordleGame = () => {
     //      ];
     //    setSolution(randomSolution.word.toLowerCase());
   }, [setSolution]);
-
-  return loading ? (
-    <div className="divLoader">
-      <Loading />
-    </div>
-  ) : (
-    <Wordle solution={solution} />
-  );
+  return <Wordle solution={solution} />;
 };
