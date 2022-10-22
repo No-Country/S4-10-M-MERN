@@ -129,15 +129,6 @@ const Hangman = () =>{
           <button className="btnPlayAgain" onClick={playAgain}>
             Volver a Jugar
           </button>
-
-          <div className="divSolutionDev">
-            <p>
-              *Solo para el desarrollo
-              <br />
-              La solución es: <span>{solution.originalTitle}</span>
-            </p>
-            <p style={{ color: "white" }}>Puntos :{score}</p>
-          </div>
         </div>
       </div>
 

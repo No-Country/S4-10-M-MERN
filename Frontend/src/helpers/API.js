@@ -1,5 +1,5 @@
 function applyPath(path) {
-  return "http://localhost:8080" + path;
+  return "https://s4-10-m-mern-production.up.railway.app" + path;
 }
 
 export const API = {
