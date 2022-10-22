@@ -22,8 +22,6 @@ function WordleBattlePrepare() {
       setTimeout(() => startGame(), 1000);
     };
 
-   
-
     if (Boolean(client.id)) {
       setMyId(client.id);
     } else{
