@@ -1,0 +1,14 @@
+.pageTitleComponent {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  font-family: Arcade, sans-serif;
+  font-size: 35px;
+  color: white;
+  text-shadow: 4px 4px 2px black;
+}
+
+.pageTitleComponent > img {
+  height: 50px;
+  width: auto;
+}
