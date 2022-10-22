@@ -14,7 +14,7 @@ const GameButton = ({ children, to, imgURL }) => {
   const mayor = "> ";
   return (
     <Link to={to} className="linkTo">
-      {mayor + children} <img src={imgURL} alt="Game Image" height={64} />
+      {mayor + children} <img src={imgURL} alt="Game-Ico" height={64} />
     </Link>
   );
 };
