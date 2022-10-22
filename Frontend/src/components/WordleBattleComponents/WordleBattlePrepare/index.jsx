@@ -27,8 +27,8 @@ function WordleBattlePrepare() {
     if (Boolean(client.id)) {
       setMyId(client.id);
     } else{
+      client.connect();
       client.on("connect", () => {
-        client.connect();
         setMyId(client.id);
         console.log("conectado!");
       });
