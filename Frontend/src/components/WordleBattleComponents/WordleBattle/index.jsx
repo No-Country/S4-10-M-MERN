@@ -7,8 +7,9 @@ import useWordle from "../../../hooks/useWordle.js";
 import Grid from "../../WordleComponents/Grid";
 import RemoteGrid from "../RemoteGrid/index.jsx";
 import GameOverScreen from "../../GameOverScreen/index.jsx";
-
+import wordleBattle from "../../../assets/images/wordleBattle.svg";
 import "./index.css";
+import PageTitle from "../../PageTitle/index.jsx";
 
 function WordleBattle() {
   const location = useLocation();
@@ -66,6 +67,7 @@ function WordleBattle() {
     <div className="radialBackground">
       {/* <div className="generalText">Solución - {solution}</div>
       <div className="generalText">Actual jugada - {currentGuess}</div> */}
+      <PageTitle  icon={wordleBattle} text={"WORDLE BATTLE"}/>
       <div className="container-gral">
         <div className="local-grid">
           <Grid guesses={guesses} currentGuess={currentGuess} turn={turn} />
