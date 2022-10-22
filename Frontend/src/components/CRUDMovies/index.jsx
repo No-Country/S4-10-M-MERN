@@ -24,7 +24,7 @@ function CRUDMovies() {
             formData.append("audio", audio)
             console.log([...formData])
             console.log(img)
-            fetch(`http://localhost:8080/api/v1/movie`, {
+            fetch(`https://s4-10-m-mern-production.up.railway.app/api/v1/movie`, {
                 method: "POST",
                 body: formData
             })
